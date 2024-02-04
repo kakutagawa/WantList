@@ -14,6 +14,9 @@
 		1DD0D3B52B6B137F0008DE7F /* WantListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3B42B6B137F0008DE7F /* WantListTests.swift */; };
 		1DD0D3BF2B6B137F0008DE7F /* WantListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3BE2B6B137F0008DE7F /* WantListUITests.swift */; };
 		1DD0D3C12B6B137F0008DE7F /* WantListUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3C02B6B137F0008DE7F /* WantListUITestsLaunchTests.swift */; };
+		1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */; };
+		1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */; };
+		1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,10 @@
 		1DD0D3BA2B6B137F0008DE7F /* WantListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WantListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3BE2B6B137F0008DE7F /* WantListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListUITests.swift; sourceTree = "<group>"; };
 		1DD0D3C02B6B137F0008DE7F /* WantListUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RakutenAPI.swift; sourceTree = "<group>"; };
+		1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmazonAPI.swift; sourceTree = "<group>"; };
+		1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooAPI.swift; sourceTree = "<group>"; };
+		1DD0D3D32B6C62670008DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +101,12 @@
 		1DD0D3A22B6B137C0008DE7F /* WantList */ = {
 			isa = PBXGroup;
 			children = (
+				1DD0D3D32B6C62670008DE7F /* Info.plist */,
 				1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */,
 				1DD0D3A52B6B137C0008DE7F /* ContentView.swift */,
+				1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */,
+				1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */,
+				1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */,
 				1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */,
 				1DD0D3A92B6B137F0008DE7F /* Preview Content */,
 			);
@@ -258,6 +269,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DD0D3A62B6B137C0008DE7F /* ContentView.swift in Sources */,
+				1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */,
+				1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */,
+				1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */,
 				1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,11 +438,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WantList/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WantList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,11 +468,13 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WantList/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WantList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
