@@ -17,6 +17,7 @@
 		1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */; };
 		1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */; };
 		1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */; };
+		1DD0D3D52B71A0540008DE7F /* RakutenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D42B71A0540008DE7F /* RakutenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmazonAPI.swift; sourceTree = "<group>"; };
 		1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooAPI.swift; sourceTree = "<group>"; };
 		1DD0D3D32B6C62670008DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1DD0D3D42B71A0540008DE7F /* RakutenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RakutenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				1DD0D3D32B6C62670008DE7F /* Info.plist */,
 				1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */,
 				1DD0D3A52B6B137C0008DE7F /* ContentView.swift */,
+				1DD0D3D42B71A0540008DE7F /* RakutenView.swift */,
 				1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */,
 				1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */,
 				1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */,
@@ -273,6 +276,7 @@
 				1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */,
 				1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */,
 				1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */,
+				1DD0D3D52B71A0540008DE7F /* RakutenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
