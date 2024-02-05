@@ -24,7 +24,7 @@ final class GetYahooItem: ObservableObject {
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(YahooGoods.self, from: data)
             Task { @MainActor in
-                self.yahooGoods = searchedResult
+//                self.yahooGoods = searchedResult
             }
         } catch {
             print("エラー: \(error)")

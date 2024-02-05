@@ -24,7 +24,7 @@ final class GetAmazonItem: ObservableObject {
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(AmazonGoods.self, from: data)
             Task { @MainActor in
-                self.amazonGoods = searchedResult
+//                self.amazonGoods = searchedResult
             }
         } catch {
             print("エラー: \(error)")
