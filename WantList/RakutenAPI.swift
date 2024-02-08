@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct Items: Identifiable {
-    let id = UUID()
-    let itemName: String
-    let itemCaption: String
-    let itemPrice: String
-    let itemURL: URL
-}
-final class GetRakutenItem: ObservableObject {
-    private struct ResultJson: Codable {
-        struct Item: Codable {
-            var itemName: String?
-            var itemCaption: String?
-            var itemPrice: String?
-            var itemURL: URL?
+struct Items: Codable {
+    let items: [Item]
+
+    struct Item: Codable {
+        var itemName: String?
+        var itemCaption: String?
+        var itemPrice: String?
+        var itemUrl: URL?
+
+        enum CodingKeys: String, CodingKey {
+            case itemName = "itemName"
+            case itemCaption = "itemCaption"
+            case itemPrice = "itemPrice"
+            case itemUrl = "itemUrl"
         }
-        let item: [Item]?
     }
+}
 
-
+final class GetRakutenItem: ObservableObject {
     @Published var rakutenGoods: [Items] = []
     var rakutenLink: URL?
 
@@ -53,17 +53,17 @@ final class GetRakutenItem: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
-            let searchedResult = try decoder.decode(ResultJson.self, from: data)
+            let searchedResult = try decoder.decode(Items.self, from: data)
 
-            guard let items = searchedResult.item else { return }
+            let items = searchedResult.items
             rakutenGoods.removeAll()
 
             for item in items {
                 if let itemName = item.itemName,
                    let itemCaption = item.itemCaption,
                    let itemPrice = item.itemPrice,
-                   let itemURL = item.itemURL {
-                    let rakutenItem = Items(itemName: itemName, itemCaption: itemCaption, itemPrice: itemPrice, itemURL: itemURL)
+                   let itemUrl = item.itemUrl {
+                    let rakutenItem = Items(items: [item])
                     self.rakutenGoods.append(rakutenItem)
                 }
             }

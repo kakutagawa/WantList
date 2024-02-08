@@ -24,13 +24,13 @@ struct RakutenView: View {
             .padding()
         }
 
-        List(rakutenDataList.rakutenGoods) { goods in
-            Button {
-                rakutenDataList.rakutenLink = goods.itemURL
-            } label: {
-                Text(goods.itemName)
-            }
-        }
+//        List(rakutenDataList.rakutenGoods) { goods in
+//            Button {
+//                rakutenDataList.rakutenLink = goods.itemUrl
+//            } label: {
+//                Text(goods.itemName)
+//            }
+//        }
     }
 }
 

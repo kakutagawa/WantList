@@ -11,7 +11,7 @@ import SwiftUI
 struct WantListApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RakutenView()
         }
     }
 }
