@@ -28,7 +28,19 @@ struct RakutenView: View {
             Button {
                 rakutenDataList.rakutenLink = goods.itemUrl
             } label: {
-                Text(goods.itemName ?? "なし")
+                VStack {
+                    AsyncImage(url: goods.itemUrl) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 50)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    Text(goods.itemName ?? "なし")
+                    Text("\(goods.itemPrice?.description ?? "なし")円")
+                }
+
             }
         }
     }

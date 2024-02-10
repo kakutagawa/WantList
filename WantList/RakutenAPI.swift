@@ -22,18 +22,11 @@ struct RakutenItems: Codable {
 
         struct ItemDetail: Codable, Hashable {
                 var itemName: String?
-                var itemCaption: String?
                 var itemPrice: Int?
                 var itemUrl: URL?
-                var mediumImageUrls: MediumImageUrls?
+                var smallImageUrls: [SmallImageUrls]?
 
-                enum CodingKeys: String, CodingKey {
-                    case itemName = "itemName"
-                    case itemCaption = "itemCaption"
-                    case itemPrice = "itemPrice"
-                    case itemUrl = "itemUrl"
-                }
-            struct MediumImageUrls: Codable, Hashable {
+            struct SmallImageUrls: Codable, Hashable {
                 var imageUrl: URL?
             }
         }
