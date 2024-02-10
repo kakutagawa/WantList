@@ -7,26 +7,41 @@
 
 import Foundation
 
-struct Items: Codable {
+struct RakutenItems: Codable {
     let items: [Item]
 
-    struct Item: Codable {
-        var itemName: String?
-        var itemCaption: String?
-        var itemPrice: String?
-        var itemUrl: URL?
+    enum CodingKeys: String, CodingKey {
+        case items = "Items"
+    }
 
-        enum CodingKeys: String, CodingKey {
-            case itemName = "itemName"
-            case itemCaption = "itemCaption"
-            case itemPrice = "itemPrice"
-            case itemUrl = "itemUrl"
+    struct Item: Codable {
+        let item: ItemDetail
+            enum CodingKeys: String, CodingKey {
+                case item = "Item"
+            }
+
+        struct ItemDetail: Codable, Hashable {
+                var itemName: String?
+                var itemCaption: String?
+                var itemPrice: Int?
+                var itemUrl: URL?
+                var mediumImageUrls: MediumImageUrls?
+
+                enum CodingKeys: String, CodingKey {
+                    case itemName = "itemName"
+                    case itemCaption = "itemCaption"
+                    case itemPrice = "itemPrice"
+                    case itemUrl = "itemUrl"
+                }
+            struct MediumImageUrls: Codable, Hashable {
+                var imageUrl: URL?
+            }
         }
     }
 }
 
 final class GetRakutenItem: ObservableObject {
-    @Published var rakutenGoods: [Items] = []
+    @Published var rakutenGoods: [RakutenItems.Item.ItemDetail] = []
     var rakutenLink: URL?
 
     func searchRakuten(keyword: String) {
@@ -53,20 +68,22 @@ final class GetRakutenItem: ObservableObject {
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
-            let searchedResult = try decoder.decode(Items.self, from: data)
+            let searchedResult = try decoder.decode(RakutenItems.self, from: data)
 
-            let items = searchedResult.items
-            rakutenGoods.removeAll()
+            let items = searchedResult.items.map(\.item)
+            rakutenGoods = items
+//for文で回さんくてOK
 
-            for item in items {
-                if let itemName = item.itemName,
-                   let itemCaption = item.itemCaption,
-                   let itemPrice = item.itemPrice,
-                   let itemUrl = item.itemUrl {
-                    let rakutenItem = Items(items: [item])
-                    self.rakutenGoods.append(rakutenItem)
-                }
-            }
+//            for item in items {
+//                if let itemName = item.itemName,
+//                   let itemCaption = item.itemCaption,
+//                   let itemPrice = item.itemPrice,
+//                   let itemUrl = item.itemUrl {
+//                    let rakutenItem = Items(items: [item])
+//                    self.rakutenGoods.append(rakutenItem)
+//                    print(rakutenGoods)
+//                }
+//            }
         } catch {
             print("エラー: \(error)")
         }

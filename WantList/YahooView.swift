@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct RakutenView: View {
-    @StateObject private var rakutenDataList = GetRakutenItem()
+struct YahooView: View {
+    @StateObject private var yahooDataList = GetYahooItem()
     @State private var inputText = ""
 
     var body: some View {
@@ -18,22 +18,22 @@ struct RakutenView: View {
                 prompt: Text("キーワードを入力してください")
             )
             .onSubmit {
-                rakutenDataList.searchRakuten(keyword: inputText)
+                yahooDataList.searchYahoo(keyword: inputText)
             }
             .submitLabel(.search)
             .padding()
         }
 
-        List(rakutenDataList.rakutenGoods, id: \.self) { goods in
+        List(yahooDataList.yahooGoods, id: \.self) { goods in
             Button {
-                rakutenDataList.rakutenLink = goods.itemUrl
+                yahooDataList.yahooLink = goods.url
             } label: {
-                Text(goods.itemName ?? "なし")
+                Text(goods.name ?? "なし")
             }
         }
     }
 }
 
 #Preview {
-    RakutenView()
+    YahooView()
 }
