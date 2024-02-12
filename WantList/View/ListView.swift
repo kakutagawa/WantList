@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ListView.swift
 //  WantList
 //
 //  Created by 芥川浩平 on 2024/02/01.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ListView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ListView()
 }
