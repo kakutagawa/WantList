@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */; };
-		1DD0D3A62B6B137C0008DE7F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ContentView.swift */; };
+		1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ListView.swift */; };
 		1DD0D3A82B6B137F0008DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */; };
 		1DD0D3AB2B6B137F0008DE7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3AA2B6B137F0008DE7F /* Preview Assets.xcassets */; };
 		1DD0D3B52B6B137F0008DE7F /* WantListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3B42B6B137F0008DE7F /* WantListTests.swift */; };
@@ -19,6 +19,9 @@
 		1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */; };
 		1DD0D3D52B71A0540008DE7F /* RakutenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D42B71A0540008DE7F /* RakutenView.swift */; };
 		1DD0D3D72B7514880008DE7F /* YahooView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D62B7514880008DE7F /* YahooView.swift */; };
+		1DD0D3D92B786BAD0008DE7F /* MakeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3D82B786BAD0008DE7F /* MakeListView.swift */; };
+		1DD0D3DB2B786BD50008DE7F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3DA2B786BD50008DE7F /* SearchView.swift */; };
+		1DD0D3DD2B786BF30008DE7F /* ListDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3DC2B786BF30008DE7F /* ListDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +44,7 @@
 /* Begin PBXFileReference section */
 		1DD0D3A02B6B137C0008DE7F /* WantList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WantList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListApp.swift; sourceTree = "<group>"; };
-		1DD0D3A52B6B137C0008DE7F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1DD0D3A52B6B137C0008DE7F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DD0D3AA2B6B137F0008DE7F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1DD0D3B02B6B137F0008DE7F /* WantListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WantListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +58,9 @@
 		1DD0D3D32B6C62670008DE7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1DD0D3D42B71A0540008DE7F /* RakutenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RakutenView.swift; sourceTree = "<group>"; };
 		1DD0D3D62B7514880008DE7F /* YahooView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YahooView.swift; sourceTree = "<group>"; };
+		1DD0D3D82B786BAD0008DE7F /* MakeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeListView.swift; sourceTree = "<group>"; };
+		1DD0D3DA2B786BD50008DE7F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		1DD0D3DC2B786BF30008DE7F /* ListDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,12 +113,8 @@
 			children = (
 				1DD0D3D32B6C62670008DE7F /* Info.plist */,
 				1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */,
-				1DD0D3A52B6B137C0008DE7F /* ContentView.swift */,
-				1DD0D3D42B71A0540008DE7F /* RakutenView.swift */,
-				1DD0D3D62B7514880008DE7F /* YahooView.swift */,
-				1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */,
-				1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */,
-				1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */,
+				1DD0D3DF2B786C580008DE7F /* API */,
+				1DD0D3DE2B786C250008DE7F /* View */,
 				1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */,
 				1DD0D3A92B6B137F0008DE7F /* Preview Content */,
 			);
@@ -142,6 +144,29 @@
 				1DD0D3C02B6B137F0008DE7F /* WantListUITestsLaunchTests.swift */,
 			);
 			path = WantListUITests;
+			sourceTree = "<group>";
+		};
+		1DD0D3DE2B786C250008DE7F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DD0D3A52B6B137C0008DE7F /* ListView.swift */,
+				1DD0D3DC2B786BF30008DE7F /* ListDetailView.swift */,
+				1DD0D3D82B786BAD0008DE7F /* MakeListView.swift */,
+				1DD0D3DA2B786BD50008DE7F /* SearchView.swift */,
+				1DD0D3D42B71A0540008DE7F /* RakutenView.swift */,
+				1DD0D3D62B7514880008DE7F /* YahooView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1DD0D3DF2B786C580008DE7F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				1DD0D3CD2B6C56D60008DE7F /* RakutenAPI.swift */,
+				1DD0D3D12B6C56EE0008DE7F /* YahooAPI.swift */,
+				1DD0D3CF2B6C56E00008DE7F /* AmazonAPI.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -274,11 +299,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DD0D3A62B6B137C0008DE7F /* ContentView.swift in Sources */,
+				1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */,
+				1DD0D3DB2B786BD50008DE7F /* SearchView.swift in Sources */,
 				1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */,
+				1DD0D3D92B786BAD0008DE7F /* MakeListView.swift in Sources */,
 				1DD0D3D72B7514880008DE7F /* YahooView.swift in Sources */,
 				1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */,
 				1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */,
+				1DD0D3DD2B786BF30008DE7F /* ListDetailView.swift in Sources */,
 				1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */,
 				1DD0D3D52B71A0540008DE7F /* RakutenView.swift in Sources */,
 			);

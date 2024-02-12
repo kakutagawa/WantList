@@ -24,9 +24,9 @@ struct RakutenItems: Codable {
                 var itemName: String?
                 var itemPrice: Int?
                 var itemUrl: URL?
-                var smallImageUrls: [SmallImageUrls]?
+                var mediumImageUrls: [MediumImageUrls]?
 
-            struct SmallImageUrls: Codable, Hashable {
+            struct MediumImageUrls: Codable, Hashable {
                 var imageUrl: URL?
             }
         }
