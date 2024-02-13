@@ -7,10 +7,18 @@
 
 import SwiftUI
 
+struct WantItem: Codable, Identifiable {
+    var id = UUID()
+    var itemtitle: String?
+    var itemCaption: String?
+    var itemPrice: String?
+}
+
 struct MakeListView: View {
     @State var itemTitle: String = ""
     @State var itemCaption: String = ""
     @State var itemPrice: String = ""
+    @State var itemList: [WantItem] = []
 
     var body: some View {
         VStack {
@@ -38,6 +46,12 @@ struct MakeListView: View {
                     .font(.system(size: 40))
                     .foregroundStyle(Color.black)
                     .frame(height: 40)
+            }
+            Button {
+                let newItem = WantItem(itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice)
+                itemList.append(newItem)
+            } label: {
+                Text("追加")
             }
         }
     }

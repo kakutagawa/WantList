@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D207D352B7BAC7A00AAD64A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D342B7BAC7A00AAD64A /* ListViewController.swift */; };
+		1D207D372B7BAC9200AAD64A /* MakeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */; };
 		1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */; };
 		1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ListView.swift */; };
 		1DD0D3A82B6B137F0008DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D207D342B7BAC7A00AAD64A /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeListViewController.swift; sourceTree = "<group>"; };
 		1DD0D3A02B6B137C0008DE7F /* WantList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WantList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListApp.swift; sourceTree = "<group>"; };
 		1DD0D3A52B6B137C0008DE7F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -88,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D207D382B7BAC9700AAD64A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1D207D342B7BAC7A00AAD64A /* ListViewController.swift */,
+				1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		1DD0D3972B6B137C0008DE7F = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +127,7 @@
 				1DD0D3D32B6C62670008DE7F /* Info.plist */,
 				1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */,
 				1DD0D3DF2B786C580008DE7F /* API */,
+				1D207D382B7BAC9700AAD64A /* ViewController */,
 				1DD0D3DE2B786C250008DE7F /* View */,
 				1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */,
 				1DD0D3A92B6B137F0008DE7F /* Preview Content */,
@@ -304,8 +318,10 @@
 				1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */,
 				1DD0D3D92B786BAD0008DE7F /* MakeListView.swift in Sources */,
 				1DD0D3D72B7514880008DE7F /* YahooView.swift in Sources */,
+				1D207D352B7BAC7A00AAD64A /* ListViewController.swift in Sources */,
 				1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */,
 				1DD0D3D02B6C56E00008DE7F /* AmazonAPI.swift in Sources */,
+				1D207D372B7BAC9200AAD64A /* MakeListViewController.swift in Sources */,
 				1DD0D3DD2B786BF30008DE7F /* ListDetailView.swift in Sources */,
 				1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */,
 				1DD0D3D52B71A0540008DE7F /* RakutenView.swift in Sources */,
