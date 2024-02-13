@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ListView: View {
-    @State var wantList: [WantItem] = []
+    @Binding var itemList: [WantItem]
     private let itemListKey = "itemListKey"
 
     var body: some View {
-        List(wantList, id: \.id) { item in
+        List(itemList, id: \.id) { item in
             HStack {
                 Text(item.itemtitle ?? "なし")
                 Spacer()
@@ -23,7 +23,7 @@ struct ListView: View {
             if let savedItemList = UserDefaults.standard.data(forKey: itemListKey) {
                 do {
                     let decoder = JSONDecoder()
-                    wantList = try decoder.decode([WantItem].self, from: savedItemList)
+                    itemList = try decoder.decode([WantItem].self, from: savedItemList)
                 } catch {
                     print("Failed to decode TodoItems: \(error)")
                 }
@@ -32,7 +32,7 @@ struct ListView: View {
         .onDisappear {
             do {
                 let encoder = JSONEncoder()
-                let encodedItemList = try encoder.encode(wantList)
+                let encodedItemList = try encoder.encode(itemList)
                 UserDefaults.standard.set(encodedItemList, forKey: itemListKey)
             } catch {
                 print("Failed to encode ToDoItems: \(error)")
@@ -41,6 +41,6 @@ struct ListView: View {
     }
 }
 
-#Preview {
-    ListView()
-}
+//#Preview {
+//    ListView(itemList: )
+//}
