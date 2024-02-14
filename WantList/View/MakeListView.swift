@@ -7,18 +7,49 @@
 
 import SwiftUI
 
-struct WantItem: Codable, Identifiable {
-    var id = UUID()
-    var itemtitle: String?
-    var itemCaption: String?
-    var itemPrice: String?
+class ItemList: ObservableObject {
+    @Published var itemList: [WantItem] {
+        didSet {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(itemList) {
+                UserDefaults.standard.set(encoded, forKey: "itemList")
+            }
+        }
+    }
+
+    init() {
+        if let savedData = UserDefaults.standard.data(forKey: "itemList") {
+            let decoder = JSONDecoder()
+            if let loadedData = try? decoder.decode([WantItem].self, from: savedData) {
+                itemList = loadedData
+                return
+            }
+        }
+        itemList = []
+    }
+}
+
+protocol MakeListDelegate {
+    func transition(item: WantItem)
+}
+
+final class AddButtonDidTap {
+    var delegate: MakeListDelegate?
+    func TappedButton(item: WantItem) {
+        guard let delegate = delegate else {
+            return
+        }
+        delegate.transition(item: item)
+    }
 }
 
 struct MakeListView: View {
+    @EnvironmentObject var items: ItemList
     @State var itemTitle: String = ""
     @State var itemCaption: String = ""
     @State var itemPrice: String = ""
-    @State var itemList: [WantItem] = []
+    @Environment(\.presentationMode) var presentationMode
+    var addButtonDidTap = AddButtonDidTap()
 
     var body: some View {
         VStack {
@@ -48,12 +79,21 @@ struct MakeListView: View {
                     .frame(height: 40)
             }
             Button {
-                let newItem = WantItem(itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice)
-                itemList.append(newItem)
+                addItemList()
             } label: {
                 Text("追加")
             }
         }
+    }
+
+    private func addItemList() {
+        let newItem = WantItem(id: 1, itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice)
+        items.itemList.append(newItem)
+        itemTitle = ""
+        itemCaption = ""
+        itemPrice = ""
+        presentationMode.wrappedValue.dismiss()
+        addButtonDidTap.TappedButton(item: newItem)
     }
 }
 
