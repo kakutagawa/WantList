@@ -12,6 +12,7 @@ struct WantListApp: App {
     var body: some Scene {
         WindowGroup {
             MakeListView()
+                .environmentObject(ItemList())
         }
     }
 }

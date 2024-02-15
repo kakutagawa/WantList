@@ -16,7 +16,7 @@ final class MakeListViewController: UIViewController {
         let makeListView = MakeListView()
         makeListView.addButtonDidTap.delegate = self
 
-        let makeListViewController = UIHostingController(rootView: MakeListView())
+        let makeListViewController = UIHostingController(rootView: makeListView)
         addChild(makeListViewController)
         makeListViewController.view.frame = view.bounds
         view.addSubview(makeListViewController.view)
@@ -34,7 +34,7 @@ final class MakeListViewController: UIViewController {
 }
 
 extension MakeListViewController: MakeListDelegate {
-    func transition(item: WantItem) {
+    func transition() {
         let listViewController = ListViewController()
         navigationController?.pushViewController(listViewController, animated: true)
     }

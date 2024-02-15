@@ -30,16 +30,16 @@ class ItemList: ObservableObject {
 }
 
 protocol MakeListDelegate {
-    func transition(item: WantItem)
+    func transition()
 }
 
 final class AddButtonDidTap {
     var delegate: MakeListDelegate?
-    func TappedButton(item: WantItem) {
+    func TappedButton() {
         guard let delegate = delegate else {
             return
         }
-        delegate.transition(item: item)
+        delegate.transition()
     }
 }
 
@@ -52,31 +52,23 @@ struct MakeListView: View {
     var addButtonDidTap = AddButtonDidTap()
 
     var body: some View {
-        VStack {
-            TextField("タイトル", text: $itemTitle)
-                .font(.system(size: 40))
-                .foregroundStyle(Color.black)
-                .frame(width: .infinity, height: 40)
-            TextEditor(text: $itemCaption)
-                .frame(width: .infinity, height: 100)
-                .overlay(alignment: .topLeading) {
-                    if itemCaption.isEmpty {
-                        Text("メモ")
-                            .allowsHitTesting(false)
-                            .foregroundStyle(Color(uiColor: .placeholderText))
-                            .padding(6)
+        Form {
+            Section(header: Text("タイトル")){
+                TextField("タイトルを入力", text: $itemTitle)
+            }
+            Section(header: Text("メモ")){
+                TextEditor(text: $itemCaption)
+                    .overlay(alignment: .topLeading) {
+                        if itemCaption.isEmpty {
+                            Text("メモを入力")
+                                .allowsHitTesting(false)
+                                .foregroundStyle(Color(uiColor: .placeholderText))
+                        }
                     }
-                }
-            HStack {
+            }
+            Section(header: Text("値段")){
                 TextField("値段", text: $itemPrice)
                     .keyboardType(.numberPad)
-                    .font(.system(size: 40))
-                    .foregroundStyle(Color.black)
-                    .frame(height: 40)
-                Text("円")
-                    .font(.system(size: 40))
-                    .foregroundStyle(Color.black)
-                    .frame(height: 40)
             }
             Button {
                 addItemList()
@@ -93,7 +85,7 @@ struct MakeListView: View {
         itemCaption = ""
         itemPrice = ""
         presentationMode.wrappedValue.dismiss()
-        addButtonDidTap.TappedButton(item: newItem)
+        addButtonDidTap.TappedButton()
     }
 }
 
