@@ -13,8 +13,8 @@ final class MakeListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let makeListView = MakeListView()
-        makeListView.addButtonDidTap.delegate = self
+        var makeListView = MakeListView()
+        makeListView.delegate = self
 
         let makeListViewController = UIHostingController(rootView: makeListView)
         addChild(makeListViewController)
@@ -35,7 +35,18 @@ final class MakeListViewController: UIViewController {
 
 extension MakeListViewController: MakeListDelegate {
     func transition() {
-        let listViewController = ListViewController()
+        //UINavigationControllerでラップしたlistViewControllerを呼び出す
+        let listViewController = UINavigationController(rootViewController: ListViewController())
         navigationController?.pushViewController(listViewController, animated: true)
+    }
+}
+
+//UIViewControllerRepresentableを使う
+struct UIKitMakeListViewController: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        MakeListViewController()
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+
     }
 }

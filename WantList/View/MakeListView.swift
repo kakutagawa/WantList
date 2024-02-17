@@ -33,23 +33,13 @@ protocol MakeListDelegate {
     func transition()
 }
 
-final class AddButtonDidTap {
-    var delegate: MakeListDelegate?
-    func TappedButton() {
-        guard let delegate = delegate else {
-            return
-        }
-        delegate.transition()
-    }
-}
-
 struct MakeListView: View {
     @EnvironmentObject var items: ItemList
     @State var itemTitle: String = ""
     @State var itemCaption: String = ""
     @State var itemPrice: String = ""
     @Environment(\.presentationMode) var presentationMode
-    var addButtonDidTap = AddButtonDidTap()
+    var delegate: MakeListDelegate?
 
     var body: some View {
         Form {
@@ -85,7 +75,7 @@ struct MakeListView: View {
         itemCaption = ""
         itemPrice = ""
         presentationMode.wrappedValue.dismiss()
-        addButtonDidTap.TappedButton()
+        delegate?.transition()
     }
 }
 
