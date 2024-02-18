@@ -8,11 +8,36 @@
 import SwiftUI
 
 struct ListDetailView: View {
+    var listDetail: WantItem
+    @State var selectedItemTitle: String
+    @State var selectedItemCaption: String
+    @State var selectedItemPrice: String
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            Section(header: Text("タイトル")){
+                TextField("", text: $selectedItemTitle)
+                    .onAppear() {
+                        self.selectedItemTitle = listDetail.itemtitle ?? "なし"
+                    }
+            }
+            Section(header: Text("メモ")){
+                TextEditor(text: $selectedItemCaption)
+                    .onAppear() {
+                        self.selectedItemCaption = listDetail.itemCaption ?? "なし"
+                    }
+            }
+            Section(header: Text("値段")){
+                TextField("", text: $selectedItemPrice)
+                    .keyboardType(.numberPad)
+                    .onAppear() {
+                        self.selectedItemPrice = listDetail.itemPrice ?? "なし"
+                    }
+            }
+        }
     }
 }
 
-#Preview {
-    ListDetailView()
-}
+//#Preview {
+//    ListDetailView()
+//}

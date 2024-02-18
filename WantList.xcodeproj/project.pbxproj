@@ -10,6 +10,7 @@
 		1D207D352B7BAC7A00AAD64A /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D342B7BAC7A00AAD64A /* ListViewController.swift */; };
 		1D207D372B7BAC9200AAD64A /* MakeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */; };
 		1D207D3C2B7CFD4700AAD64A /* WantItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D3B2B7CFD4700AAD64A /* WantItemModel.swift */; };
+		1D207D3E2B8240ED00AAD64A /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D207D3D2B8240ED00AAD64A /* ListDetailViewController.swift */; };
 		1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */; };
 		1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ListView.swift */; };
 		1DD0D3A82B6B137F0008DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		1D207D342B7BAC7A00AAD64A /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeListViewController.swift; sourceTree = "<group>"; };
 		1D207D3B2B7CFD4700AAD64A /* WantItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantItemModel.swift; sourceTree = "<group>"; };
+		1D207D3D2B8240ED00AAD64A /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		1DD0D3A02B6B137C0008DE7F /* WantList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WantList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListApp.swift; sourceTree = "<group>"; };
 		1DD0D3A52B6B137C0008DE7F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				1D207D342B7BAC7A00AAD64A /* ListViewController.swift */,
+				1D207D3D2B8240ED00AAD64A /* ListDetailViewController.swift */,
 				1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */,
 			);
 			path = ViewController;
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */,
+				1D207D3E2B8240ED00AAD64A /* ListDetailViewController.swift in Sources */,
 				1DD0D3DB2B786BD50008DE7F /* SearchView.swift in Sources */,
 				1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */,
 				1DD0D3D92B786BAD0008DE7F /* MakeListView.swift in Sources */,

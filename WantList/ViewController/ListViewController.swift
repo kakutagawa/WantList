@@ -10,19 +10,12 @@ import SwiftUI
 
 final class ListViewController: UIViewController {
 
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         var listView = ListView()
-        listView.delegate = self
+        listView.makeListDelegate = self
+        listView.editListDelegate = self
 
         let listViewController = UIHostingController(rootView: listView)
         addChild(listViewController)
@@ -41,12 +34,20 @@ final class ListViewController: UIViewController {
     }
 }
 
-extension ListViewController: ListDelegate {
-    func transition() {
+extension ListViewController: MakeListDelegate {
+    func MakeListViewTransition() {
         let makeListViewController = MakeListViewController()
         navigationController?.pushViewController(makeListViewController, animated: true)
     }
 }
+
+extension ListViewController: EditListDelegate {
+    func ListDetailViewTransition(item: WantItem) {
+        let listDetailViewController = ListDetailViewController(selectedItem: item)
+        navigationController?.pushViewController(listDetailViewController, animated: true)
+    }
+}
+
 
 //UIViewControllerRepresentableを使う
 struct UIKitListViewController: UIViewControllerRepresentable {
