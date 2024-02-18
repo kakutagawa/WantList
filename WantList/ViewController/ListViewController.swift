@@ -21,7 +21,10 @@ final class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let listViewController = UIHostingController(rootView: ListView())
+        var listView = ListView()
+        listView.delegate = self
+
+        let listViewController = UIHostingController(rootView: listView)
         addChild(listViewController)
         listViewController.view.frame = view.bounds
         view.addSubview(listViewController.view)
@@ -35,5 +38,23 @@ final class ListViewController: UIViewController {
             listViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             listViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+extension ListViewController: ListDelegate {
+    func transition() {
+        let makeListViewController = MakeListViewController()
+        navigationController?.pushViewController(makeListViewController, animated: true)
+    }
+}
+
+//UIViewControllerRepresentableを使う
+struct UIKitListViewController: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        //UINavigationControllerでMakeListViewをラップ
+        UINavigationController(rootViewController: ListViewController())
+    }
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+
     }
 }

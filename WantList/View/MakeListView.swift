@@ -29,17 +29,12 @@ class ItemList: ObservableObject {
     }
 }
 
-protocol MakeListDelegate {
-    func transition()
-}
-
 struct MakeListView: View {
     @EnvironmentObject var items: ItemList
     @State var itemTitle: String = ""
     @State var itemCaption: String = ""
     @State var itemPrice: String = ""
     @Environment(\.presentationMode) var presentationMode
-    var delegate: MakeListDelegate?
 
     var body: some View {
         Form {
@@ -75,7 +70,6 @@ struct MakeListView: View {
         itemCaption = ""
         itemPrice = ""
         presentationMode.wrappedValue.dismiss()
-        delegate?.transition()
     }
 }
 

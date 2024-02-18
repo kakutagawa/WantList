@@ -7,15 +7,27 @@
 
 import SwiftUI
 
+protocol ListDelegate {
+    func transition()
+}
+
 struct ListView: View {
     @EnvironmentObject var items: ItemList
+    var delegate: ListDelegate?
 
     var body: some View {
-        List(items.itemList) { item in
-            HStack {
-                Text(item.itemtitle ?? "なし")
-                Spacer()
-                Text("¥\(item.itemPrice ?? "なし")")
+        VStack {
+            List(items.itemList) { item in
+                HStack {
+                    Text(item.itemtitle ?? "なし")
+                    Spacer()
+                    Text("¥\(item.itemPrice ?? "なし")")
+                }
+            }
+            Button {
+                delegate?.transition()
+            } label: {
+                Text("新規作成")
             }
         }
     }
