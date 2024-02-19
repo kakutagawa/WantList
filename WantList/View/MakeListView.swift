@@ -7,33 +7,11 @@
 
 import SwiftUI
 
-class ItemList: ObservableObject {
-    @Published var itemList: [WantItem] {
-        didSet {
-            let encoder = JSONEncoder()
-            if let encoded = try? encoder.encode(itemList) {
-                UserDefaults.standard.set(encoded, forKey: "itemList")
-            }
-        }
-    }
-
-    init() {
-        if let savedData = UserDefaults.standard.data(forKey: "itemList") {
-            let decoder = JSONDecoder()
-            if let loadedData = try? decoder.decode([WantItem].self, from: savedData) {
-                itemList = loadedData
-                return
-            }
-        }
-        itemList = []
-    }
-}
-
 struct MakeListView: View {
     @EnvironmentObject var items: ItemList
-    @State var itemTitle: String = ""
-    @State var itemCaption: String = ""
-    @State var itemPrice: String = ""
+    @State private var itemTitle: String = ""
+    @State private var itemCaption: String = ""
+    @State private var itemPrice: String = ""
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {

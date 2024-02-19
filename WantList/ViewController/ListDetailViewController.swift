@@ -24,15 +24,9 @@ final class ListDetailViewController: UIViewController {
         super.viewDidLoad()
 
         let listDetailViewController = UIHostingController(
-            rootView: ListDetailView(
-                listDetail: selectedItem,
-                selectedItemTitle: selectedItem.itemtitle ?? "なし",
-                selectedItemCaption: selectedItem.itemCaption ?? "なし",
-                selectedItemPrice: selectedItem.itemPrice ?? "なし"
-                )
+            rootView: ListDetailView(listDetail: selectedItem)
         )
         addChild(listDetailViewController)
-        listDetailViewController.view.frame = view.bounds
         view.addSubview(listDetailViewController.view)
         listDetailViewController.didMove(toParent: self)
 

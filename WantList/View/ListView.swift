@@ -7,24 +7,20 @@
 
 import SwiftUI
 
-protocol MakeListDelegate {
-    func MakeListViewTransition()
-}
-
-protocol EditListDelegate {
-    func ListDetailViewTransition(item: WantItem)
+protocol ListViewDelegate {
+    func transitionListDetailView(item: WantItem)
+    func transitionMakeListView()
 }
 
 struct ListView: View {
     @EnvironmentObject var items: ItemList
-    var makeListDelegate: MakeListDelegate?
-    var editListDelegate: EditListDelegate?
+    var listViewDelegate: ListViewDelegate?
 
     var body: some View {
         VStack {
             List(items.itemList) { item in
                 Button {
-                    editListDelegate?.ListDetailViewTransition(item: item)
+                    listViewDelegate?.transitionListDetailView(item: item)
                 } label: {
                     HStack {
                         Text(item.itemtitle ?? "なし")
@@ -34,7 +30,7 @@ struct ListView: View {
                 }
             }
             Button {
-                makeListDelegate?.MakeListViewTransition()
+                listViewDelegate?.transitionMakeListView()
             } label: {
                 Text("新規作成")
             }

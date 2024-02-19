@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ListDetailView: View {
     var listDetail: WantItem
-    @State var selectedItemTitle: String
-    @State var selectedItemCaption: String
-    @State var selectedItemPrice: String
+    @State private var selectedItemTitle: String = ""
+    @State private var selectedItemCaption: String = ""
+    @State private var selectedItemPrice: String = ""
 
     var body: some View {
         Form {

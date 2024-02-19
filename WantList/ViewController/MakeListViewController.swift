@@ -23,7 +23,6 @@ final class MakeListViewController: UIViewController {
 
         let makeListViewController = UIHostingController(rootView: MakeListView())
         addChild(makeListViewController)
-        makeListViewController.view.frame = view.bounds
         view.addSubview(makeListViewController.view)
         makeListViewController.didMove(toParent: self)
 

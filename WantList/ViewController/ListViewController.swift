@@ -14,12 +14,10 @@ final class ListViewController: UIViewController {
         super.viewDidLoad()
 
         var listView = ListView()
-        listView.makeListDelegate = self
-        listView.editListDelegate = self
+        listView.listViewDelegate = self
 
         let listViewController = UIHostingController(rootView: listView)
         addChild(listViewController)
-        listViewController.view.frame = view.bounds
         view.addSubview(listViewController.view)
         listViewController.didMove(toParent: self)
 
@@ -34,20 +32,16 @@ final class ListViewController: UIViewController {
     }
 }
 
-extension ListViewController: MakeListDelegate {
-    func MakeListViewTransition() {
+extension ListViewController: ListViewDelegate {
+    func transitionMakeListView() {
         let makeListViewController = MakeListViewController()
         navigationController?.pushViewController(makeListViewController, animated: true)
     }
-}
-
-extension ListViewController: EditListDelegate {
-    func ListDetailViewTransition(item: WantItem) {
+    func transitionListDetailView(item: WantItem) {
         let listDetailViewController = ListDetailViewController(selectedItem: item)
         navigationController?.pushViewController(listDetailViewController, animated: true)
     }
 }
-
 
 //UIViewControllerRepresentableを使う
 struct UIKitListViewController: UIViewControllerRepresentable {
