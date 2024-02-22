@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ListDetailView: View {
     var listDetail: WantItem
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
+    @EnvironmentObject var items: ItemList
+
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         Form {
@@ -34,9 +38,27 @@ struct ListDetailView: View {
                         self.selectedItemPrice = listDetail.itemPrice ?? "なし"
                     }
             }
+            Button {
+                saveChange()
+            } label: {
+                Text("保存")
+            }
         }
     }
+    private func saveChange() {
+        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice)
+        let savedItem = items.itemList.map { item in
+            var item = item
+            if item.id == changedItem.id {
+                item = changedItem
+            }
+            return item
+        }
+        items.itemList = savedItem
+        presentationMode.wrappedValue.dismiss()
+    }
 }
+
 
 //#Preview {
 //    ListDetailView()
