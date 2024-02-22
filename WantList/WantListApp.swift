@@ -11,7 +11,8 @@ import SwiftUI
 struct WantListApp: App {
     var body: some Scene {
         WindowGroup {
-            YahooView()
+            UIKitListViewController()
+                .environmentObject(ItemList())
         }
     }
 }

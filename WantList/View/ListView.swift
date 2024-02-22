@@ -7,15 +7,34 @@
 
 import SwiftUI
 
+protocol ListViewDelegate {
+    func transitionListDetailView(item: WantItem)
+    func transitionMakeListView()
+}
+
 struct ListView: View {
+    @EnvironmentObject var items: ItemList
+    var listViewDelegate: ListViewDelegate?
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            List(items.itemList) { item in
+                Button {
+                    listViewDelegate?.transitionListDetailView(item: item)
+                } label: {
+                    HStack {
+                        Text(item.itemtitle ?? "なし")
+                        Spacer()
+                        Text("¥\(item.itemPrice ?? "なし")")
+                    }
+                }
+            }
+            Button {
+                listViewDelegate?.transitionMakeListView()
+            } label: {
+                Text("新規作成")
+            }
         }
-        .padding()
     }
 }
 

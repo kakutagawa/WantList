@@ -8,38 +8,46 @@
 import SwiftUI
 
 struct MakeListView: View {
-    @State var itemTitle: String = ""
-    @State var itemCaption: String = ""
-    @State var itemPrice: String = ""
+    @EnvironmentObject var items: ItemList
+    @State private var itemTitle: String = ""
+    @State private var itemCaption: String = ""
+    @State private var itemPrice: String = ""
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
-            TextField("タイトル", text: $itemTitle)
-                .font(.system(size: 40))
-                .foregroundStyle(Color.black)
-                .frame(width: .infinity, height: 40)
-            TextEditor(text: $itemCaption)
-                .frame(width: .infinity, height: 100)
-                .overlay(alignment: .topLeading) {
-                    if itemCaption.isEmpty {
-                        Text("メモ")
-                            .allowsHitTesting(false)
-                            .foregroundStyle(Color(uiColor: .placeholderText))
-                            .padding(6)
+        Form {
+            Section(header: Text("タイトル")){
+                TextField("タイトルを入力", text: $itemTitle)
+            }
+            Section(header: Text("メモ")){
+                TextEditor(text: $itemCaption)
+                    .overlay(alignment: .topLeading) {
+                        if itemCaption.isEmpty {
+                            Text("メモを入力")
+                                .allowsHitTesting(false)
+                                .foregroundStyle(Color(uiColor: .placeholderText))
+                        }
                     }
-                }
-            HStack {
+            }
+            Section(header: Text("値段")){
                 TextField("値段", text: $itemPrice)
                     .keyboardType(.numberPad)
-                    .font(.system(size: 40))
-                    .foregroundStyle(Color.black)
-                    .frame(height: 40)
-                Text("円")
-                    .font(.system(size: 40))
-                    .foregroundStyle(Color.black)
-                    .frame(height: 40)
+            }
+            Button {
+                addItemList()
+            } label: {
+                Text("追加")
             }
         }
+    }
+
+    private func addItemList() {
+        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice)
+        items.itemList.append(newItem)
+        itemTitle = ""
+        itemCaption = ""
+        itemPrice = ""
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
