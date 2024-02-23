@@ -37,6 +37,10 @@ extension ListViewController: ListViewDelegate {
         let makeListViewController = MakeListViewController()
         navigationController?.pushViewController(makeListViewController, animated: true)
     }
+    func transitionSearchView() {
+        let searchViewController = SearchViewController()
+        navigationController?.pushViewController(searchViewController, animated: true)
+    }
     func transitionListDetailView(item: WantItem) {
         let listDetailViewController = ListDetailViewController(selectedItem: item)
         navigationController?.pushViewController(listDetailViewController, animated: true)

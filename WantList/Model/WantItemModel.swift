@@ -12,11 +12,23 @@ struct WantItem: Codable, Identifiable {
     var itemtitle: String?
     var itemCaption: String?
     var itemPrice: String?
+    var itemImageData: Data?
 
-    init(id: Int, itemtitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil) {
+    var itemImage: UIImage? {
+        if let itemImageData = itemImageData {
+            return UIImage(data: itemImageData)
+        }
+        return nil
+    }
+
+    init(id: Int, itemtitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemImage: UIImage? = nil) {
         self.id = id
         self.itemtitle = itemtitle
         self.itemCaption = itemCaption
         self.itemPrice = itemPrice
+        
+        if let itemImage = itemImage {
+            self.itemImageData = itemImage.pngData()
+        }
     }
 }

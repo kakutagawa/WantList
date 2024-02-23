@@ -13,40 +13,75 @@ struct ListDetailView: View {
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
+    @State private var selectedItemImage: UIImage?
+    @State var showingAlert: Bool = false
     @EnvironmentObject var items: ItemList
-
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        Form {
-            Section(header: Text("タイトル")){
-                TextField("", text: $selectedItemTitle)
+        VStack {
+            if let image = selectedItemImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                    .padding(.top, 10)
                     .onAppear() {
-                        self.selectedItemTitle = listDetail.itemtitle ?? "なし"
+                        self.selectedItemImage = listDetail.itemImage
                     }
+            } else {
+                Text("No Image")
+                    .font(Font.system(size: 24).bold())
+                    .foregroundColor(Color.white)
+                    .frame(width: 200, height: 200)
+                    .background(Color(UIColor.lightGray))
+                    .padding(.top, 10)
             }
-            Section(header: Text("メモ")){
-                TextEditor(text: $selectedItemCaption)
-                    .onAppear() {
-                        self.selectedItemCaption = listDetail.itemCaption ?? "なし"
-                    }
-            }
-            Section(header: Text("値段")){
-                TextField("", text: $selectedItemPrice)
-                    .keyboardType(.numberPad)
-                    .onAppear() {
-                        self.selectedItemPrice = listDetail.itemPrice ?? "なし"
-                    }
-            }
+
             Button {
-                saveChange()
+                showingAlert = true
             } label: {
-                Text("保存")
+                Text("Select Image")
+                    .font(Font.system(size:20).bold())
+                    .foregroundColor(Color.white)
+                    .padding(.horizontal, 100)
+                    .padding(.vertical, 16)
+                    .background(Color(UIColor.lightGray))
+            }
+            Form {
+                Section(header: Text("タイトル")){
+                    TextField("", text: $selectedItemTitle)
+                        .onAppear() {
+                            self.selectedItemTitle = listDetail.itemtitle ?? "なし"
+                        }
+                }
+                Section(header: Text("メモ")){
+                    TextEditor(text: $selectedItemCaption)
+                        .onAppear() {
+                            self.selectedItemCaption = listDetail.itemCaption ?? "なし"
+                        }
+                }
+                Section(header: Text("値段")){
+                    TextField("", text: $selectedItemPrice)
+                        .keyboardType(.numberPad)
+                        .onAppear() {
+                            self.selectedItemPrice = listDetail.itemPrice ?? "なし"
+                        }
+                }
+                Button {
+                    saveChange()
+                } label: {
+                    Text("保存")
+                }
+            }
+            .sheet(isPresented: $showingAlert) {
+
+            } content: {
+                ImagePicker(image: $selectedItemImage)
             }
         }
     }
     private func saveChange() {
-        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice)
+        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemImage: selectedItemImage)
         let savedItem = items.itemList.map { item in
             var item = item
             if item.id == changedItem.id {
