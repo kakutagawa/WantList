@@ -23,24 +23,30 @@ struct ListDetailView: View {
             Button {
                 showingAlert = true
             } label: {
+                //もしlistDetailに画像データがあった場合
                 if let image = listDetail.itemImage {
+                    //画像の変更がされた場合、その新しい画像を表示
                     if let selectedItemImage = selectedItemImage {
                         Image(uiImage: selectedItemImage)
                             .resizable()
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
+                    //画像の変更がされなかった場合、listDetailの画像を表示
                     } else {
                         Image(uiImage: image)
                             .resizable()
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
                     }
+                //もしlistDetailに画像データがなかった場合
                 } else {
+                    //画像が追加された場合、その画像を表示
                     if let selectedItemImage = selectedItemImage {
                         Image(uiImage: selectedItemImage)
                             .resizable()
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
+                    //画像が追加されない場合、「No Image」と表示
                     } else {
                         Text("No Image")
                             .font(Font.system(size: 24).bold())
