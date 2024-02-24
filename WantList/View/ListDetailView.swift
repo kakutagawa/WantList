@@ -20,14 +20,18 @@ struct ListDetailView: View {
 
     var body: some View {
         VStack {
-            if let image = selectedItemImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .padding(.top, 10)
-                    .onAppear() {
-                        self.selectedItemImage = listDetail.itemImage
-                    }
+            if let image = listDetail.itemImage {
+                if let selectedItemImage = selectedItemImage {
+                    Image(uiImage: selectedItemImage)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .padding(.top, 10)
+                } else {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .padding(.top, 10)
+                }
             } else {
                 Text("No Image")
                     .font(Font.system(size: 24).bold())
