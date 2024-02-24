@@ -20,36 +20,36 @@ struct ListDetailView: View {
 
     var body: some View {
         VStack {
-            if let image = listDetail.itemImage {
-                if let selectedItemImage = selectedItemImage {
-                    Image(uiImage: selectedItemImage)
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                        .padding(.top, 10)
-                } else {
-                    Image(uiImage: image)
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                        .padding(.top, 10)
-                }
-            } else {
-                Text("No Image")
-                    .font(Font.system(size: 24).bold())
-                    .foregroundColor(Color.white)
-                    .frame(width: 200, height: 200)
-                    .background(Color(UIColor.lightGray))
-                    .padding(.top, 10)
-            }
-
             Button {
                 showingAlert = true
             } label: {
-                Text("Select Image")
-                    .font(Font.system(size:20).bold())
-                    .foregroundColor(Color.white)
-                    .padding(.horizontal, 100)
-                    .padding(.vertical, 16)
-                    .background(Color(UIColor.lightGray))
+                if let image = listDetail.itemImage {
+                    if let selectedItemImage = selectedItemImage {
+                        Image(uiImage: selectedItemImage)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .padding(.top, 10)
+                    } else {
+                        Image(uiImage: image)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .padding(.top, 10)
+                    }
+                } else {
+                    if let selectedItemImage = selectedItemImage {
+                        Image(uiImage: selectedItemImage)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .padding(.top, 10)
+                    } else {
+                        Text("No Image")
+                            .font(Font.system(size: 24).bold())
+                            .foregroundColor(Color.white)
+                            .frame(width: 200, height: 200)
+                            .background(Color(UIColor.lightGray))
+                            .padding(.top, 10)
+                    }
+                }
             }
             Form {
                 Section(header: Text("タイトル")){
