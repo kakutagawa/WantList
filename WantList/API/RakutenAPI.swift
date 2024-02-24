@@ -65,18 +65,6 @@ final class GetRakutenItem: ObservableObject {
 
             let items = searchedResult.items.map(\.item)
             rakutenGoods = items
-//for文で回さんくてOK
-
-//            for item in items {
-//                if let itemName = item.itemName,
-//                   let itemCaption = item.itemCaption,
-//                   let itemPrice = item.itemPrice,
-//                   let itemUrl = item.itemUrl {
-//                    let rakutenItem = Items(items: [item])
-//                    self.rakutenGoods.append(rakutenItem)
-//                    print(rakutenGoods)
-//                }
-//            }
         } catch {
             print("エラー: \(error)")
         }
