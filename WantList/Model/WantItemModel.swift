@@ -12,6 +12,7 @@ struct WantItem: Codable, Identifiable {
     var itemtitle: String?
     var itemCaption: String?
     var itemPrice: String?
+    var itemUrl: String?
     var itemImageData: Data?
 
     var itemImage: UIImage? {
@@ -21,12 +22,13 @@ struct WantItem: Codable, Identifiable {
         return nil
     }
 
-    init(id: Int, itemtitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemImage: UIImage? = nil) {
+    init(id: Int, itemtitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: String? = nil, itemImage: UIImage? = nil) {
         self.id = id
         self.itemtitle = itemtitle
         self.itemCaption = itemCaption
         self.itemPrice = itemPrice
-        
+        self.itemUrl = itemUrl
+
         if let itemImage = itemImage {
             self.itemImageData = itemImage.pngData()
         }

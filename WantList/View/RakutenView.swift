@@ -10,6 +10,7 @@ import SwiftUI
 struct RakutenView: View {
     @StateObject private var rakutenDataList = GetRakutenItem()
     @State private var inputText = ""
+    @State private var isSafariView: Bool = false
 
     @EnvironmentObject var items: ItemList
     @Environment(\.presentationMode) var presentationMode
@@ -50,7 +51,7 @@ struct RakutenView: View {
                         }
                     }
                     HStack {
-                        Button {
+                        Button { //ほしい物リストに追加するボタン
                             guard let imageUrl = goods.mediumImageUrls?.first?.imageUrl else { return }
                             let url = URL(string: imageUrl.absoluteString)!
                             URLSession.shared.dataTask(with: url) { data, response, error in
@@ -61,7 +62,7 @@ struct RakutenView: View {
                                 if let data = data, let image = UIImage(data: data) {
                                     // メインスレッド
                                     DispatchQueue.main.async {
-                                        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: goods.itemName, itemCaption: "", itemPrice: goods.itemPrice?.description, itemImage: image)
+                                        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: goods.itemName, itemCaption: "", itemPrice: goods.itemPrice?.description, itemUrl: goods.itemUrl?.description, itemImage: image)
                                         // ほしい物リストに入れる
                                         items.itemList.append(newItem)
                                     }
@@ -70,11 +71,19 @@ struct RakutenView: View {
                         } label: {
                             Image(systemName: "arrow.down.circle.fill")
                         }
-                        Button {
-                            //Safariで商品情報ページを表示する
+                        Button { //Safariを開くボタン
+                            isSafariView = true
                         } label: {
                             Image(systemName: "safari.fill")
                         }
+                    }
+                }
+                .fullScreenCover(isPresented: $isSafariView) {
+                    if let safariUrl = goods.itemUrl {
+                        SafariView(url: safariUrl) { configuration in
+                            configuration.dismissButtonStyle = .close
+                        }
+                        .edgesIgnoringSafeArea(.all)
                     }
                 }
             }

@@ -13,8 +13,10 @@ struct ListDetailView: View {
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
+    @State private var selectedItemUrl: String = ""
     @State private var selectedItemImage: UIImage?
-    @State var showingAlert: Bool = false
+    @State private var showingAlert: Bool = false
+    @State private var isSafariView: Bool = false
     @EnvironmentObject var items: ItemList
     @Environment(\.presentationMode) var presentationMode
 
@@ -77,6 +79,17 @@ struct ListDetailView: View {
                             self.selectedItemPrice = listDetail.itemPrice ?? "なし"
                         }
                 }
+                Section(header: Text("URL")){
+                    TextField("", text: $selectedItemUrl)
+                        .onAppear() {
+                            self.selectedItemUrl = listDetail.itemUrl ?? "なし"
+                        }
+                }
+                Button {
+                    isSafariView = true
+                } label: {
+                    Text("ウェブサイトにジャンプ")
+                }
                 Button {
                     saveChange()
                 } label: {
@@ -89,9 +102,10 @@ struct ListDetailView: View {
                 ImagePicker(image: $selectedItemImage)
             }
         }
+        //ここにSafariViewに飛ぶ処理を追加予定
     }
     private func saveChange() {
-        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemImage: selectedItemImage)
+        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: selectedItemUrl, itemImage: selectedItemImage)
         let savedItem = items.itemList.map { item in
             var item = item
             if item.id == changedItem.id {

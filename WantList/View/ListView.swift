@@ -29,24 +29,33 @@ struct ListView: View {
                                 if let image = item.itemImage {
                                     Image(uiImage: image)
                                         .resizable()
-                                        .frame(maxWidth: 150, maxHeight: 150)
+                                        .frame(maxWidth: 100, maxHeight: 100)
                                         .padding(.leading, 10)
                                 } else {
                                     Text("No Image")
                                         .font(Font.system(size: 24).bold())
                                         .foregroundColor(Color.white)
-                                        .frame(width: 150, height: 150)
+                                        .frame(width: 100, height: 100)
                                         .background(Color(UIColor.lightGray))
                                         .padding(.leading, 10)
                                 }
                                 Spacer()
-                                VStack {
+                                VStack(alignment: .trailing) {
                                     Text(item.itemtitle ?? "なし")
+                                        .font(.headline)
+                                        .foregroundStyle(Color("TextColor"))
                                     Spacer()
                                     Text("¥\(item.itemPrice ?? "なし")")
                                 }
+                                Button {
+                                    items.itemList.remove(at: item.id - 1)
+                                } label: {
+                                    Image(systemName: "trash.circle.fill")
+                                }
                             }
                         }
+                        .frame(maxHeight: 120)
+                        Divider()
                     }
                 }
             }

@@ -12,6 +12,7 @@ struct MakeListView: View {
     @State private var itemTitle: String = ""
     @State private var itemCaption: String = ""
     @State private var itemPrice: String = ""
+    @State private var itemUrl: String = ""
     @State private var itemImage: UIImage?
     @State var showingAlert: Bool = false
     @Environment(\.presentationMode) var presentationMode
@@ -55,6 +56,9 @@ struct MakeListView: View {
                     TextField("値段", text: $itemPrice)
                         .keyboardType(.numberPad)
                 }
+                Section(header: Text("URL")){
+                    TextField("ウェブサイトのURLを入力", text: $itemUrl)
+                }
                 Button {
                     addItemList()
                 } label: {
@@ -62,7 +66,7 @@ struct MakeListView: View {
                 }
             }
             .sheet(isPresented: $showingAlert) {
-
+                
             } content: {
                 ImagePicker(image: $itemImage)
             }
@@ -70,11 +74,12 @@ struct MakeListView: View {
     }
 
     private func addItemList() {
-        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice, itemImage: itemImage)
+        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice, itemUrl: itemUrl, itemImage: itemImage)
         items.itemList.append(newItem)
         itemTitle = ""
         itemCaption = ""
         itemPrice = ""
+        itemUrl = ""
         presentationMode.wrappedValue.dismiss()
     }
 }
