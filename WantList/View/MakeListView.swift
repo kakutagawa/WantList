@@ -74,7 +74,7 @@ struct MakeListView: View {
     }
 
     private func addItemList() {
-        let newItem = WantItem(id: items.itemList.count + 1, itemtitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice, itemUrl: itemUrl, itemImage: itemImage)
+        let newItem = WantItem(id: items.itemList.count + 1, itemTitle: itemTitle, itemCaption: itemCaption, itemPrice: itemPrice, itemUrl: URL(string: itemUrl), itemImage: itemImage)
         items.itemList.append(newItem)
         itemTitle = ""
         itemCaption = ""

@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct WantItem: Codable, Identifiable {
+struct WantItem: Codable, Identifiable, Hashable {
     var id: Int
-    var itemtitle: String?
+    var itemTitle: String?
     var itemCaption: String?
     var itemPrice: String?
-    var itemUrl: String?
+    var itemUrl: URL?
+    var itemImageUrl: URL?
     var itemImageData: Data?
 
     var itemImage: UIImage? {
@@ -21,13 +22,16 @@ struct WantItem: Codable, Identifiable {
         }
         return nil
     }
+    // 商品画像のURLも持てるようにする
+    //
 
-    init(id: Int, itemtitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: String? = nil, itemImage: UIImage? = nil) {
+    init(id: Int, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil) {
         self.id = id
-        self.itemtitle = itemtitle
+        self.itemTitle = itemTitle
         self.itemCaption = itemCaption
         self.itemPrice = itemPrice
         self.itemUrl = itemUrl
+        self.itemImageUrl = itemImageUrl
 
         if let itemImage = itemImage {
             self.itemImageData = itemImage.pngData()

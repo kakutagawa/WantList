@@ -63,7 +63,7 @@ struct ListDetailView: View {
                 Section(header: Text("タイトル")){
                     TextField("", text: $selectedItemTitle)
                         .onAppear() {
-                            self.selectedItemTitle = listDetail.itemtitle ?? "なし"
+                            self.selectedItemTitle = listDetail.itemTitle ?? "なし"
                         }
                 }
                 Section(header: Text("メモ")){
@@ -82,7 +82,7 @@ struct ListDetailView: View {
                 Section(header: Text("URL")){
                     TextField("", text: $selectedItemUrl)
                         .onAppear() {
-                            self.selectedItemUrl = listDetail.itemUrl ?? "なし"
+                            self.selectedItemUrl = listDetail.itemUrl?.absoluteString ?? "なし"
                         }
                 }
                 Button {
@@ -105,7 +105,7 @@ struct ListDetailView: View {
         //ここにSafariViewに飛ぶ処理を追加予定
     }
     private func saveChange() {
-        let changedItem = WantItem(id: listDetail.id, itemtitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: selectedItemUrl, itemImage: selectedItemImage)
+        let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl), itemImage: selectedItemImage ?? listDetail.itemImage)
         let savedItem = items.itemList.map { item in
             var item = item
             if item.id == changedItem.id {

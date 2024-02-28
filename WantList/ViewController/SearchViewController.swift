@@ -21,7 +21,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let searchViewController = UIHostingController(rootView: RakutenView())
+        let searchViewController = UIHostingController(rootView: SearchView())
         addChild(searchViewController)
         view.addSubview(searchViewController.view)
         searchViewController.didMove(toParent: self)

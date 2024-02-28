@@ -19,45 +19,42 @@ struct ListView: View {
 
     var body: some View {
         ZStack(alignment: .bottom){
-            VStack {
-                ScrollView {
-                    ForEach(items.itemList) { item in
-                        Button {
-                            listViewDelegate?.transitionListDetailView(item: item)
-                        } label: {
-                            HStack{
-                                if let image = item.itemImage {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .frame(maxWidth: 100, maxHeight: 100)
-                                        .padding(.leading, 10)
-                                } else {
-                                    Text("No Image")
-                                        .font(Font.system(size: 24).bold())
-                                        .foregroundColor(Color.white)
-                                        .frame(width: 100, height: 100)
-                                        .background(Color(UIColor.lightGray))
-                                        .padding(.leading, 10)
-                                }
-                                Spacer()
-                                VStack(alignment: .trailing) {
-                                    Text(item.itemtitle ?? "なし")
-                                        .font(.headline)
-                                        .foregroundStyle(Color("TextColor"))
-                                    Spacer()
-                                    Text("¥\(item.itemPrice ?? "なし")")
-                                }
-                                Button {
-                                    items.itemList.remove(at: item.id - 1)
-                                } label: {
-                                    Image(systemName: "trash.circle.fill")
-                                }
+            List {
+                ForEach(items.itemList) { item in
+                    Button {
+                        listViewDelegate?.transitionListDetailView(item: item)
+                    } label: {
+                        HStack(spacing: 15) {
+                            if let image = item.itemImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .frame(maxWidth: 100, maxHeight: 100)
+                            } else {
+                                Text("No Image")
+                                    .font(Font.system(size: 24).bold())
+                                    .foregroundColor(Color.white)
+                                    .frame(width: 100, height: 100)
+                                    .background(Color(UIColor.lightGray))
                             }
+                            VStack(alignment: .trailing) {
+                                Text(item.itemTitle ?? "なし")
+                                    .font(.headline)
+                                    .foregroundStyle(Color("TextColor"))
+                                Spacer()
+                                Text("¥\(item.itemPrice ?? "なし")")
+                                    .foregroundStyle(Color.pink)
+                                    .font(.headline)
+                            }
+                            .frame(maxWidth: .infinity)
                         }
-                        .frame(maxHeight: 120)
-                        Divider()
                     }
+                    .frame(maxHeight: 120)
                 }
+                .onMove(perform: moveRow)
+                .onDelete(perform: removeRow)
+            }
+            .toolbar {
+                EditButton()
             }
             HStack(spacing: 25) {
                 Spacer()
@@ -84,6 +81,12 @@ struct ListView: View {
                 .padding(.trailing, 30)
             }
         }
+    }
+    private func moveRow(from source: IndexSet, to destination: Int) {
+        items.itemList.move(fromOffsets: source, toOffset: destination)
+    }
+    private func removeRow(offsets: IndexSet) {
+        items.itemList.remove(atOffsets: offsets)
     }
 }
 
