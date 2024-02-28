@@ -24,9 +24,8 @@ struct ListDetailView: View {
         VStack {
             Button {
                 showingAlert = true
-            } label: {
-                //もしlistDetailに画像データがあった場合
-                if let image = listDetail.itemImage {
+            } label: {  //以下、条件分岐が長すぎるため、enumやswitch文に後ほど変更を加える
+                if let image = listDetail.itemImage {  //listDetailにUIImage型の画像データがあった場合
                     //画像の変更がされた場合、その新しい画像を表示
                     if let selectedItemImage = selectedItemImage {
                         Image(uiImage: selectedItemImage)
@@ -40,8 +39,25 @@ struct ListDetailView: View {
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
                     }
-                //もしlistDetailに画像データがなかった場合
-                } else {
+                } else if let image = listDetail.itemImageUrl { //listDetailにURL型の画像データがあった場合
+                    //画像の変更がされた場合、その新しい画像を表示
+                    if let selectedItemImage = selectedItemImage {
+                        Image(uiImage: selectedItemImage)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                            .padding(.top, 10)
+                        //画像の変更がされなかった場合、listDetailの画像を表示
+                    } else {
+                        AsyncImage(url: image) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: 200, maxHeight: 200)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    }
+                } else {  //もしlistDetailに画像データがなかった場合
                     //画像が追加された場合、その画像を表示
                     if let selectedItemImage = selectedItemImage {
                         Image(uiImage: selectedItemImage)

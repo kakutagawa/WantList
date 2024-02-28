@@ -25,10 +25,20 @@ struct ListView: View {
                         listViewDelegate?.transitionListDetailView(item: item)
                     } label: {
                         HStack(spacing: 15) {
-                            if let image = item.itemImage {
-                                Image(uiImage: image)
+                            //画像の表示
+                            if let selectedImage = item.itemImage {
+                                Image(uiImage: selectedImage)
                                     .resizable()
                                     .frame(maxWidth: 100, maxHeight: 100)
+                            } else if let netShopImage = item.itemImageUrl {
+                                AsyncImage(url: netShopImage) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(maxWidth: 100, maxHeight: 100)
+                                } placeholder: {
+                                    ProgressView()
+                                }
                             } else {
                                 Text("No Image")
                                     .font(Font.system(size: 24).bold())
@@ -37,10 +47,12 @@ struct ListView: View {
                                     .background(Color(UIColor.lightGray))
                             }
                             VStack(alignment: .trailing) {
+                                //タイトルの表示
                                 Text(item.itemTitle ?? "なし")
                                     .font(.headline)
                                     .foregroundStyle(Color("TextColor"))
                                 Spacer()
+                                //価格の表示
                                 Text("¥\(item.itemPrice ?? "なし")")
                                     .foregroundStyle(Color.pink)
                                     .font(.headline)

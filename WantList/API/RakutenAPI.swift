@@ -58,27 +58,26 @@ final class GetRakutenItem: ObservableObject {
         }
         print(url)
 
-//        do {
-//            let (data, _) = try await URLSession.shared.data(from: url)
-//            let decoder = JSONDecoder()
-//            let searchedResult = try decoder.decode(RakutenItems.self, from: data)
-//
-//            let searchedResultArray: [RakutenItems.Item.ItemDetail] = searchedResult.items.map(\.item)
-//
-//            var rakutenItemsArray:[WantItem] = searchedResultArray.map { (item: RakutenItems.Item.ItemDetail) in
-        ////Type of expression is ambiguous without a type annotation　エラーはここに出る
-//                WantItem(
-//                    id: item.hashValue,
-//                    itemTitle: item.itemName,
-//                    itemCaption: "",
-//                    itemPrice: "\(item.itemPrice ?? 0)",
-//                    itemUrl: item.itemUrl?.absoluteString,
-//                    itemImageUrl: item.mediumImageUrls?.first?.imageUrl
-//                )
-//            }
-//            rakutenGoods.append(contentsOf: rakutenItemsArray)
-//        } catch {
-//            print("エラー: \(error)")
-//        }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let decoder = JSONDecoder()
+            let searchedResult = try decoder.decode(RakutenItems.self, from: data)
+
+            let searchedResultArray = searchedResult.items.map(\.item)
+
+            var rakutenItemsArray = searchedResultArray.map { item in
+                WantItem(
+                    id: item.hashValue,
+                    itemTitle: item.itemName,
+                    itemCaption: "",
+                    itemPrice: "\(item.itemPrice ?? 0)",
+                    itemUrl: item.itemUrl,
+                    itemImageUrl: item.mediumImageUrls?.first?.imageUrl
+                )
+            }
+            rakutenGoods.append(contentsOf: rakutenItemsArray)
+        } catch {
+            print("エラー: \(error)")
+        }
     }
 }

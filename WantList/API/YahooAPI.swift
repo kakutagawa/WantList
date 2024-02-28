@@ -53,19 +53,19 @@ final class GetYahooItem: ObservableObject {
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(YahooItems.self, from: data)
 
-            let items = searchedResult.hits
+            let searchedResultArray = searchedResult.hits
 
-//            var yahooItemsArray = items.map { item in
-//                WantItem(
-//                    id: item.hashValue,
-//                    itemTitle: item.name,
-//                    itemCaption: item.description,
-//                    itemPrice: "\(item.price ?? 0)",
-//                    itemUrl: item.url?.absoluteString,
-//                    itemImageUrl: item.image.medium
-//                )
-//            }
-//            yahooGoods.append(contentsOf: yahooItemsArray)
+            var yahooItemsArray = searchedResultArray.map { item in
+                WantItem(
+                    id: item.hashValue,
+                    itemTitle: item.name,
+                    itemCaption: item.description,
+                    itemPrice: "\(item.price ?? 0)",
+                    itemUrl: item.url,
+                    itemImageUrl: item.image.medium
+                )
+            }
+            yahooGoods.append(contentsOf: yahooItemsArray)
 
         } catch {
             print("エラー: \(error)")
