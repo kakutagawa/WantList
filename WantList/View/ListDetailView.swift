@@ -8,6 +8,14 @@
 import SwiftUI
 import UIKit
 
+enum ImageType {
+    case selectedImage          //ImagePickerで選択した画像
+    case handedImage            //ListViewから渡されてきた「自分で選んだ」画像
+    case uiImageByShop(UIImage) //ショッピングサイトから渡されてきた商品画像
+    case imageUrlByShop(URL)    //ショッピングサイトから渡されてきた商品画像
+    case noImage                //画像なし
+}
+
 struct ListDetailView: View {
     var listDetail: WantItem
     @State private var selectedItemTitle: String = ""
@@ -24,55 +32,43 @@ struct ListDetailView: View {
         VStack {
             Button {
                 showingAlert = true
-            } label: {  //以下、条件分岐が長すぎるため、enumやswitch文に後ほど変更を加える
-                if let image = listDetail.itemImage {  //listDetailにUIImage型の画像データがあった場合
-                    //画像の変更がされた場合、その新しい画像を表示
-                    if let selectedItemImage = selectedItemImage {
-                        Image(uiImage: selectedItemImage)
+            } label: {
+                switch getImageType() {
+                case .selectedImage:
+                    if let selectedImage = selectedItemImage{
+                        Image(uiImage: selectedImage)
                             .resizable()
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
-                    //画像の変更がされなかった場合、listDetailの画像を表示
-                    } else {
+                    }
+                case .handedImage:
+                    if let image = listDetail.itemImage {
                         Image(uiImage: image)
                             .resizable()
                             .frame(width: 200, height: 200)
                             .padding(.top, 10)
                     }
-                } else if let image = listDetail.itemImageUrl { //listDetailにURL型の画像データがあった場合
-                    //画像の変更がされた場合、その新しい画像を表示
-                    if let selectedItemImage = selectedItemImage {
-                        Image(uiImage: selectedItemImage)
+                case .uiImageByShop(let uiImage):
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .padding(.top, 10)
+                case .imageUrlByShop(let url):
+                    AsyncImage(url: url) { image in
+                        image
                             .resizable()
-                            .frame(width: 200, height: 200)
-                            .padding(.top, 10)
-                        //画像の変更がされなかった場合、listDetailの画像を表示
-                    } else {
-                        AsyncImage(url: image) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: 200, maxHeight: 200)
-                        } placeholder: {
-                            ProgressView()
-                        }
+                            .scaledToFit()
+                            .frame(maxWidth: 200, maxHeight: 200)
+                    } placeholder: {
+                        ProgressView()
                     }
-                } else {  //もしlistDetailに画像データがなかった場合
-                    //画像が追加された場合、その画像を表示
-                    if let selectedItemImage = selectedItemImage {
-                        Image(uiImage: selectedItemImage)
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                            .padding(.top, 10)
-                    //画像が追加されない場合、「No Image」と表示
-                    } else {
-                        Text("No Image")
-                            .font(Font.system(size: 24).bold())
-                            .foregroundColor(Color.white)
-                            .frame(width: 200, height: 200)
-                            .background(Color(UIColor.lightGray))
-                            .padding(.top, 10)
-                    }
+                case .noImage:
+                    Text("No Image")
+                        .font(Font.system(size: 24).bold())
+                        .foregroundColor(Color.white)
+                        .frame(width: 200, height: 200)
+                        .background(Color(UIColor.lightGray))
+                        .padding(.top, 10)
                 }
             }
             Form {
@@ -126,6 +122,19 @@ struct ListDetailView: View {
                 }
                 .edgesIgnoringSafeArea(.all)
             }
+        }
+    }
+    private func getImageType() -> ImageType {
+        if let selectedImage = selectedItemImage {
+            return .selectedImage
+        } else if let handedImage = listDetail.itemImage {
+            return .handedImage
+        } else if let uiImage = selectedItemImage {
+            return .uiImageByShop(uiImage)
+        } else if let imageUrl = listDetail.itemImageUrl {
+            return .imageUrlByShop(imageUrl)
+        } else {
+            return .noImage
         }
     }
     private func saveChange() {

@@ -19,21 +19,20 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        
-        VStack {
-            TextField(
-                "キーワード", text: $inputText,
-                prompt: Text("キーワードを入力してください")
-            )
-            .onSubmit {
-                getRakutenItem.searchRakuten(keyword: inputText)
-                getYahooItem.searchYahoo(keyword: inputText)
-            }
-            .submitLabel(.search)
-            .padding()
+        HStack {
+            Image(systemName: "magnifyingglass")
+            TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
+                .onSubmit {
+                    getRakutenItem.searchRakuten(keyword: inputText)
+                    getYahooItem.searchYahoo(keyword: inputText)
+                }
         }
+        .submitLabel(.search)
+        .padding()
+        .background(Color(.systemGray6))
+        .padding()
 
-        ScrollView {
+        List {
             ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
                 VStack {
                     HStack {
@@ -45,28 +44,38 @@ struct SearchView: View {
                         } placeholder: {
                             ProgressView()
                         }
-                        VStack {
+                        VStack(alignment: .leading) {
                             Text(goods.itemTitle ?? "なし")
                                 .font(.headline)
                                 .foregroundStyle(Color.black)
-                            Text("¥\(goods.itemPrice?.description ?? "なし")")
-                                .foregroundStyle(Color.pink)
-                                .font(.headline)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                        }
-                    }
-                    HStack {
-                        Button { //ほしい物リストに追加するボタン
-                            items.itemList.append(goods)
-                            tappedAddButtonSet.insert(goods.id)
-                        } label: {
-                            Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
-                                .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
-                        }
-                        Button { //Safariを開くボタン
-                            isSafariView = true
-                        } label: {
-                            Image(systemName:"safari.fill")
+                            HStack {
+                                Text("¥\(goods.itemPrice?.description ?? "なし")")
+                                    .foregroundStyle(Color.pink)
+                                    .font(.title3.bold())
+                                Spacer()
+                                //                        Text(goods.条件分岐（RakutenかYahooか） ? "R" : "Y")
+                                //                            .font(.title)
+                                //                            .foregroundStyle(Color.red)
+                                Button { //ほしい物リストに追加するボタン
+                                    items.itemList.append(goods)
+                                    tappedAddButtonSet.insert(goods.id)
+                                } label: {
+                                    Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                        .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
+
+                                }
+                                Button { //Safariを開くボタン
+                                    isSafariView = true
+                                } label: {
+                                    Image(systemName:"safari.fill")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 25, height: 25)
+                                }
+                            }
                         }
                     }
                 }
@@ -78,9 +87,7 @@ struct SearchView: View {
                         .edgesIgnoringSafeArea(.all)
                     }
                 }
-                .frame(maxHeight: 110)
-                Divider()
-
+                .frame(maxHeight: 120)
             }
         }
     }
