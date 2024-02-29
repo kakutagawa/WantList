@@ -119,6 +119,14 @@ struct ListDetailView: View {
             }
         }
         //ここにSafariViewに飛ぶ処理を追加予定
+        .fullScreenCover(isPresented: $isSafariView) {
+            if let safariUrl = URL(string: selectedItemUrl) {
+                SafariView(url: safariUrl) { configuration in
+                    configuration.dismissButtonStyle = .close
+                }
+                .edgesIgnoringSafeArea(.all)
+            }
+        }
     }
     private func saveChange() {
         let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl), itemImage: selectedItemImage ?? listDetail.itemImage)

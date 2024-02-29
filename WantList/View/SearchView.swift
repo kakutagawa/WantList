@@ -10,9 +10,9 @@ import SwiftUI
 struct SearchView: View {
     @StateObject private var getRakutenItem = GetRakutenItem()
     @StateObject private var getYahooItem = GetYahooItem()
-    
-    @State private var searchedResultList: [WantItem] = []
+
     @State private var inputText = ""
+    @State private var tappedAddButtonSet: Set<Int> = Set()
     @State private var isSafariView: Bool = false
 
     @EnvironmentObject var items: ItemList
@@ -41,7 +41,7 @@ struct SearchView: View {
                             image
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: 100)
+                                .frame(width: 100, height: 100)
                         } placeholder: {
                             ProgressView()
                         }
@@ -50,21 +50,23 @@ struct SearchView: View {
                                 .font(.headline)
                                 .foregroundStyle(Color.black)
                             Text("¥\(goods.itemPrice?.description ?? "なし")")
-                                .font(.title)
-                                .foregroundStyle(Color.blue)
+                                .foregroundStyle(Color.pink)
+                                .font(.headline)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                     }
                     HStack {
                         Button { //ほしい物リストに追加するボタン
                             items.itemList.append(goods)
+                            tappedAddButtonSet.insert(goods.id)
                         } label: {
-                            Image(systemName: "arrow.down.circle.fill")
+                            Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
+                                .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
                         }
                         Button { //Safariを開くボタン
                             isSafariView = true
                         } label: {
-                            Image(systemName: "safari.fill")
+                            Image(systemName:"safari.fill")
                         }
                     }
                 }
@@ -76,6 +78,9 @@ struct SearchView: View {
                         .edgesIgnoringSafeArea(.all)
                     }
                 }
+                .frame(maxHeight: 110)
+                Divider()
+
             }
         }
     }
