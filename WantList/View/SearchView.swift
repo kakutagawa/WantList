@@ -20,18 +20,33 @@ struct SearchView: View {
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-            TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
-                .onSubmit {
-                    getRakutenItem.searchRakuten(keyword: inputText)
-                    getYahooItem.searchYahoo(keyword: inputText)
+        VStack{
+            HStack {
+                Image(systemName: "magnifyingglass")
+                TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
+                    .onSubmit {
+                        getRakutenItem.searchRakuten(keyword: inputText)
+                        getYahooItem.searchYahoo(keyword: inputText)
+                    }
+            }
+            .submitLabel(.search)
+            .padding()
+            .background(Color(.systemGray6))
+            .padding()
+
+            HStack {
+                Button {
+
+                } label: {
+                    Text("Rakuten")
                 }
+                Button {
+
+                } label: {
+                    Text("Yahoo")
+                }
+            }
         }
-        .submitLabel(.search)
-        .padding()
-        .background(Color(.systemGray6))
-        .padding()
 
         List {
             ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
@@ -48,7 +63,7 @@ struct SearchView: View {
                         VStack(alignment: .leading) {
                             Text(goods.itemTitle ?? "なし")
                                 .font(.headline)
-                                .foregroundStyle(Color.black)
+                                .foregroundStyle(Color("TextColor"))
                             HStack {
                                 Text("¥\(goods.itemPrice?.description ?? "なし")")
                                     .foregroundStyle(Color.pink)
@@ -56,6 +71,8 @@ struct SearchView: View {
                                 Spacer()
                                 Button { //ほしい物リストに追加するボタン
                                     isShowAlert = true
+                                    // すでに追加済みで、緑のチェックマークになっている場合
+                                    // 何も処理を行わない、というコードを追加する必要あり
                                 } label: {
                                     Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
                                         .resizable()
@@ -74,6 +91,7 @@ struct SearchView: View {
                             }
                             .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
                                 Button("追加する") {
+                                    print(goods)
                                     items.itemList.append(goods)
                                     tappedAddButtonSet.insert(goods.id)
                                 }

@@ -16,7 +16,7 @@ protocol ListViewDelegate {
 struct ListView: View {
     @EnvironmentObject var items: ItemList
     var listViewDelegate: ListViewDelegate?
-    
+
     var body: some View {
         ZStack(alignment: .bottom) {
             List {
@@ -66,9 +66,6 @@ struct ListView: View {
                 .onMove(perform: moveRow)
                 .onDelete(perform: removeRow)
             }
-            .toolbar {
-                EditButton()
-            }
             HStack(spacing: 25) {
                 Spacer()
                 //新規作成
@@ -80,6 +77,8 @@ struct ListView: View {
                         .scaledToFit()
                         .frame(width: 60)
                         .foregroundStyle(Color.pink)
+                        .background(Color.white)
+                        .clipShape(Circle())
                 }
                 //ネットショップから検索
                 Button {
@@ -90,6 +89,8 @@ struct ListView: View {
                         .scaledToFit()
                         .frame(width: 60)
                         .foregroundStyle(Color.pink)
+                        .background(Color.white)
+                        .clipShape(Circle())
                 }
                 .padding(.trailing, 30)
             }
@@ -98,7 +99,7 @@ struct ListView: View {
     private func moveRow(from source: IndexSet, to destination: Int) {
         items.itemList.move(fromOffsets: source, toOffset: destination)
     }
-    
+
     private func removeRow(offsets: IndexSet) {
         items.itemList.remove(atOffsets: offsets)
     }
