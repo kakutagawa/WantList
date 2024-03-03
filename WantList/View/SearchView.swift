@@ -13,6 +13,7 @@ struct SearchView: View {
 
     @State private var inputText = ""
     @State private var tappedAddButtonSet: Set<Int> = Set()
+    @State private var isShowAlert: Bool = false
     @State private var isSafariView: Bool = false
 
     @EnvironmentObject var items: ItemList
@@ -53,19 +54,14 @@ struct SearchView: View {
                                     .foregroundStyle(Color.pink)
                                     .font(.title3.bold())
                                 Spacer()
-                                //                        Text(goods.条件分岐（RakutenかYahooか） ? "R" : "Y")
-                                //                            .font(.title)
-                                //                            .foregroundStyle(Color.red)
                                 Button { //ほしい物リストに追加するボタン
-                                    items.itemList.append(goods)
-                                    tappedAddButtonSet.insert(goods.id)
+                                    isShowAlert = true
                                 } label: {
                                     Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 25, height: 25)
                                         .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
-
                                 }
                                 Button { //Safariを開くボタン
                                     isSafariView = true
@@ -75,6 +71,13 @@ struct SearchView: View {
                                         .scaledToFit()
                                         .frame(width: 25, height: 25)
                                 }
+                            }
+                            .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
+                                Button("追加する") {
+                                    items.itemList.append(goods)
+                                    tappedAddButtonSet.insert(goods.id)
+                                }
+                                Button("キャンセル", role: .cancel) {}
                             }
                         }
                     }
