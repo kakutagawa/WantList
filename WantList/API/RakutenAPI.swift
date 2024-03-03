@@ -62,10 +62,9 @@ final class GetRakutenItem: ObservableObject {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(RakutenItems.self, from: data)
-
             let searchedResultArray = searchedResult.items.map(\.item)
 
-            var rakutenItemsArray = searchedResultArray.map { item in
+            let rakutenItemsArray = searchedResultArray.map { item in
                 WantItem(
                     id: item.hashValue,
                     itemTitle: item.itemName,

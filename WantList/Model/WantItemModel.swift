@@ -22,8 +22,6 @@ struct WantItem: Codable, Identifiable, Hashable {
         }
         return nil
     }
-    // 商品画像のURLも持てるようにする
-    //
 
     init(id: Int, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil) {
         self.id = id

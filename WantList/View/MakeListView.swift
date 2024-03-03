@@ -19,7 +19,6 @@ struct MakeListView: View {
 
     var body: some View {
         VStack {
-
             Button {
                 showingAlert = true
             } label: {

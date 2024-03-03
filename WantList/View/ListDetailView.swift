@@ -18,6 +18,7 @@ enum ImageType {
 
 struct ListDetailView: View {
     var listDetail: WantItem
+    
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
@@ -25,6 +26,7 @@ struct ListDetailView: View {
     @State private var selectedItemImage: UIImage?
     @State private var showingAlert: Bool = false
     @State private var isSafariView: Bool = false
+
     @EnvironmentObject var items: ItemList
     @Environment(\.presentationMode) var presentationMode
 
@@ -114,7 +116,6 @@ struct ListDetailView: View {
                 ImagePicker(image: $selectedItemImage)
             }
         }
-        //ここにSafariViewに飛ぶ処理を追加予定
         .fullScreenCover(isPresented: $isSafariView) {
             if let safariUrl = URL(string: selectedItemUrl) {
                 SafariView(url: safariUrl) { configuration in
@@ -124,10 +125,11 @@ struct ListDetailView: View {
             }
         }
     }
+
     private func getImageType() -> ImageType {
-        if let selectedImage = selectedItemImage {
+        if let _ = selectedItemImage {
             return .selectedImage
-        } else if let handedImage = listDetail.itemImage {
+        } else if let _ = listDetail.itemImage {
             return .handedImage
         } else if let uiImage = selectedItemImage {
             return .uiImageByShop(uiImage)
@@ -137,6 +139,7 @@ struct ListDetailView: View {
             return .noImage
         }
     }
+
     private func saveChange() {
         let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl), itemImage: selectedItemImage ?? listDetail.itemImage)
         let savedItem = items.itemList.map { item in

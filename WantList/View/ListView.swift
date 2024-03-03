@@ -16,9 +16,9 @@ protocol ListViewDelegate {
 struct ListView: View {
     @EnvironmentObject var items: ItemList
     var listViewDelegate: ListViewDelegate?
-
+    
     var body: some View {
-        ZStack(alignment: .bottom){
+        ZStack(alignment: .bottom) {
             List {
                 ForEach(items.itemList) { item in
                     Button {
@@ -46,18 +46,19 @@ struct ListView: View {
                                     .frame(width: 100, height: 100)
                                     .background(Color(UIColor.lightGray))
                             }
-                            VStack(alignment: .trailing) {
+                            VStack() {
                                 //タイトルの表示
                                 Text(item.itemTitle ?? "なし")
                                     .font(.headline)
                                     .foregroundStyle(Color("TextColor"))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
                                 //価格の表示
                                 Text("¥\(item.itemPrice ?? "なし")")
                                     .foregroundStyle(Color.pink)
                                     .font(.headline)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
                             }
-                            .frame(maxWidth: .infinity)
                         }
                     }
                     .frame(maxHeight: 120)
@@ -97,12 +98,18 @@ struct ListView: View {
     private func moveRow(from source: IndexSet, to destination: Int) {
         items.itemList.move(fromOffsets: source, toOffset: destination)
     }
+    
     private func removeRow(offsets: IndexSet) {
         items.itemList.remove(atOffsets: offsets)
     }
 }
 
 #Preview {
-    ListView()
-        .environmentObject(ItemList())
+    Group {
+        ListView().environmentObject({ () -> ItemList in
+            let items = ItemList()
+            items.itemList = [.init(id: 1)]
+            return items
+        }() )
+    }
 }

@@ -52,10 +52,9 @@ final class GetYahooItem: ObservableObject {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(YahooItems.self, from: data)
-
             let searchedResultArray = searchedResult.hits
 
-            var yahooItemsArray = searchedResultArray.map { item in
+            let yahooItemsArray = searchedResultArray.map { item in
                 WantItem(
                     id: item.hashValue,
                     itemTitle: item.name,
