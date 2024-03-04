@@ -13,6 +13,8 @@ struct SearchView: View {
 
     @State private var inputText = ""
     @State private var tappedAddButtonSet: Set<Int> = Set()
+    @State private var tappedRakuten: Bool = true
+    @State private var tappedYahoo: Bool = true
     @State private var isShowAlert: Bool = false
     @State private var isSafariView: Bool = false
 
@@ -25,25 +27,58 @@ struct SearchView: View {
                 Image(systemName: "magnifyingglass")
                 TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
                     .onSubmit {
-                        getRakutenItem.searchRakuten(keyword: inputText)
-                        getYahooItem.searchYahoo(keyword: inputText)
+                        if tappedRakuten == true && tappedYahoo == true {  //両方叩く
+                            getRakutenItem.searchRakuten(keyword: inputText)
+                            getYahooItem.searchYahoo(keyword: inputText)
+                        } else if tappedRakuten == true && tappedYahoo == false {  //Rakutenのみ叩く
+                            getRakutenItem.searchRakuten(keyword: inputText)
+                        } else if tappedRakuten == false && tappedYahoo == true {  //Yahooのみ叩く
+                            getYahooItem.searchYahoo(keyword: inputText)
+                        } else {  //どちらも叩かない
+                            return
+                        }
+
                     }
             }
             .submitLabel(.search)
             .padding()
             .background(Color(.systemGray6))
-            .padding()
+            .padding([.top, .trailing, .leading], 10)
 
             HStack {
                 Button {
-
+                    tappedRakuten.toggle()
                 } label: {
-                    Text("Rakuten")
+                    Capsule()
+                        .fill(tappedRakuten ? Color.pink : Color.clear)
+                        .frame(width: 100, height: 40)
+                        .overlay(
+                            Capsule()
+                                .stroke(Color.pink, lineWidth: 2)
+                                .frame(width: 100, height: 40)
+                        )
+                        .overlay(
+                            Text("Rakuten")
+                                .font(.headline)
+                                .foregroundColor(Color("TextColor"))
+                        )
                 }
                 Button {
-
+                    tappedYahoo.toggle()
                 } label: {
-                    Text("Yahoo")
+                    Capsule()
+                        .fill(tappedYahoo ? Color.pink : Color.clear)
+                        .frame(width: 100, height: 40)
+                        .overlay(
+                            Capsule()
+                                .stroke(Color.pink, lineWidth: 2)
+                                .frame(width: 100, height: 40)
+                        )
+                        .overlay(
+                            Text("Yahoo")
+                                .font(.headline)
+                                .foregroundColor(Color("TextColor"))
+                        )
                 }
             }
         }
@@ -80,6 +115,8 @@ struct SearchView: View {
                                         .frame(width: 25, height: 25)
                                         .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
                                 }
+                                .buttonStyle(PlainButtonStyle())
+
                                 Button { //Safariを開くボタン
                                     isSafariView = true
                                 } label: {
@@ -87,7 +124,10 @@ struct SearchView: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 25, height: 25)
+                                        .foregroundStyle(Color.blue)
                                 }
+                                .buttonStyle(PlainButtonStyle())
+
                             }
                             .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
                                 Button("追加する") {

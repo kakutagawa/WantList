@@ -12,6 +12,7 @@ final class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ほしい物リスト"
 
         var listView = ListView()
         listView.listViewDelegate = self
