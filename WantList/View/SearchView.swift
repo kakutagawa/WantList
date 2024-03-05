@@ -100,6 +100,10 @@ struct SearchView: View {
                                 .font(.headline)
                                 .foregroundStyle(Color("TextColor"))
                             HStack {
+                                Text("\(goods.source.rawValue)")
+                                    .foregroundStyle(Color.red)
+                                    .font(.title3.bold())
+                                Spacer()
                                 Text("¥\(goods.itemPrice?.description ?? "なし")")
                                     .foregroundStyle(Color.pink)
                                     .font(.title3.bold())

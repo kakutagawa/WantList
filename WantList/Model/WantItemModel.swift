@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum ItemSource: String, Codable {
+    case rakuten = "R"
+    case yahoo = "Y"
+}
+
 struct WantItem: Codable, Identifiable, Hashable {
     var id: Int
     var itemTitle: String?
@@ -15,6 +20,7 @@ struct WantItem: Codable, Identifiable, Hashable {
     var itemUrl: URL?
     var itemImageUrl: URL?
     var itemImageData: Data?
+    var source: ItemSource
 
     var itemImage: UIImage? {
         if let itemImageData = itemImageData {
@@ -23,13 +29,14 @@ struct WantItem: Codable, Identifiable, Hashable {
         return nil
     }
 
-    init(id: Int, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil) {
+    init(id: Int, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
         self.id = id
         self.itemTitle = itemTitle
         self.itemCaption = itemCaption
         self.itemPrice = itemPrice
         self.itemUrl = itemUrl
         self.itemImageUrl = itemImageUrl
+        self.source = source
 
         if let itemImage = itemImage {
             self.itemImageData = itemImage.pngData()

@@ -61,7 +61,8 @@ final class GetYahooItem: ObservableObject {
                     itemCaption: item.description,
                     itemPrice: "\(item.price ?? 0)",
                     itemUrl: item.url,
-                    itemImageUrl: item.image.medium
+                    itemImageUrl: item.image.medium,
+                    source: .yahoo
                 )
             }
             yahooGoods.append(contentsOf: yahooItemsArray)

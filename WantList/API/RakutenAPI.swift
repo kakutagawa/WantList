@@ -71,7 +71,8 @@ final class GetRakutenItem: ObservableObject {
                     itemCaption: "",
                     itemPrice: "\(item.itemPrice ?? 0)",
                     itemUrl: item.itemUrl,
-                    itemImageUrl: item.mediumImageUrls?.first?.imageUrl
+                    itemImageUrl: item.mediumImageUrls?.first?.imageUrl,
+                    source: .rakuten
                 )
             }
             rakutenGoods.append(contentsOf: rakutenItemsArray)

@@ -50,10 +50,8 @@ extension ListViewController: ListViewDelegate {
     }
 }
 
-//UIViewControllerRepresentableを使う
 struct UIKitListViewController: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        //UINavigationControllerでMakeListViewをラップ
         UINavigationController(rootViewController: ListViewController())
     }
     

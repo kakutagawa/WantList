@@ -22,7 +22,7 @@ struct ListDetailView: View {
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
-    @State private var selectedItemUrl: String = ""
+    @State private var selectedItemUrl: String?
     @State private var selectedItemImage: UIImage?
     @State private var showingAlert: Bool = false
     @State private var isSafariView: Bool = false
@@ -77,30 +77,35 @@ struct ListDetailView: View {
                 Section(header: Text("タイトル")){
                     TextField("", text: $selectedItemTitle)
                         .onAppear() {
-                            self.selectedItemTitle = listDetail.itemTitle ?? "なし"
+                            self.selectedItemTitle = listDetail.itemTitle ?? ""
                         }
                 }
                 Section(header: Text("メモ")){
                     TextEditor(text: $selectedItemCaption)
                         .onAppear() {
-                            self.selectedItemCaption = listDetail.itemCaption ?? "なし"
+                            self.selectedItemCaption = listDetail.itemCaption ?? ""
                         }
                 }
                 Section(header: Text("値段")){
                     TextField("", text: $selectedItemPrice)
                         .keyboardType(.numberPad)
                         .onAppear() {
-                            self.selectedItemPrice = listDetail.itemPrice ?? "なし"
+                            self.selectedItemPrice = listDetail.itemPrice ?? ""
                         }
                 }
                 Section(header: Text("URL")){
-                    TextField("", text: $selectedItemUrl)
+                    TextField("", text: Binding(
+                        get: { self.selectedItemUrl ?? "" },
+                        set: { self.selectedItemUrl = $0 }
+                    ))
                         .onAppear() {
-                            self.selectedItemUrl = listDetail.itemUrl?.absoluteString ?? "なし"
+                            self.selectedItemUrl = listDetail.itemUrl?.absoluteString
                         }
                 }
                 Button {
-                    isSafariView = true
+                    if let safariUrl = selectedItemUrl {
+                        isSafariView = true
+                    }
                 } label: {
                     Text("ウェブサイトにジャンプ")
                 }
@@ -117,7 +122,8 @@ struct ListDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $isSafariView) {
-            if let safariUrl = URL(string: selectedItemUrl) {
+            if let safariUrlString = selectedItemUrl,
+               let safariUrl = URL(string: safariUrlString) {
                 SafariView(url: safariUrl) { configuration in
                     configuration.dismissButtonStyle = .close
                 }
@@ -141,7 +147,7 @@ struct ListDetailView: View {
     }
 
     private func saveChange() {
-        let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl), itemImage: selectedItemImage ?? listDetail.itemImage)
+        let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl ?? ""), itemImage: selectedItemImage ?? listDetail.itemImage, source: .rakuten)
         let savedItem = items.itemList.map { item in
             var item = item
             if item.id == changedItem.id {
