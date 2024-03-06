@@ -27,17 +27,7 @@ struct SearchView: View {
                 Image(systemName: "magnifyingglass")
                 TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
                     .onSubmit {
-                        if tappedRakuten == true && tappedYahoo == true {  //両方叩く
-                            getRakutenItem.searchRakuten(keyword: inputText)
-                            getYahooItem.searchYahoo(keyword: inputText)
-                        } else if tappedRakuten == true && tappedYahoo == false {  //Rakutenのみ叩く
-                            getRakutenItem.searchRakuten(keyword: inputText)
-                        } else if tappedRakuten == false && tappedYahoo == true {  //Yahooのみ叩く
-                            getYahooItem.searchYahoo(keyword: inputText)
-                        } else {  //どちらも叩かない
-                            return
-                        }
-
+                        searchItem()
                     }
             }
             .submitLabel(.search)
@@ -48,6 +38,7 @@ struct SearchView: View {
             HStack {
                 Button {
                     tappedRakuten.toggle()
+                    searchItem()
                 } label: {
                     Capsule()
                         .fill(tappedRakuten ? Color.pink : Color.clear)
@@ -65,6 +56,7 @@ struct SearchView: View {
                 }
                 Button {
                     tappedYahoo.toggle()
+                    searchItem()
                 } label: {
                     Capsule()
                         .fill(tappedYahoo ? Color.pink : Color.clear)
@@ -154,6 +146,20 @@ struct SearchView: View {
                 }
                 .frame(maxHeight: 120)
             }
+        }
+    }
+    private func searchItem() {
+        getRakutenItem.rakutenGoods = []
+        getYahooItem.yahooGoods = []
+        if tappedRakuten == true && tappedYahoo == true {  //両方叩く
+            getRakutenItem.searchRakuten(keyword: inputText)
+            getYahooItem.searchYahoo(keyword: inputText)
+        } else if tappedRakuten == true && tappedYahoo == false {  //Rakutenのみ叩く
+            getRakutenItem.searchRakuten(keyword: inputText)
+        } else if tappedRakuten == false && tappedYahoo == true {  //Yahooのみ叩く
+            getYahooItem.searchYahoo(keyword: inputText)
+        } else {  //どちらも叩かない
+            return
         }
     }
 }
