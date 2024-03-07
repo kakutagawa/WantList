@@ -14,6 +14,7 @@ struct YahooItems: Codable {
         var name: String?
         var description: String?
         var price: Int?
+        var code: String?
         var url: URL?
         var image: Image
 
@@ -56,7 +57,7 @@ final class GetYahooItem: ObservableObject {
 
             let yahooItemsArray = searchedResultArray.map { item in
                 WantItem(
-                    id: item.hashValue,
+                    id: item.code ?? "",
                     itemTitle: item.name,
                     itemCaption: item.description,
                     itemPrice: "\(item.price ?? 0)",

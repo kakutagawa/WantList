@@ -109,7 +109,7 @@ struct ListView: View {
     Group {
         ListView().environmentObject({ () -> ItemList in
             let items = ItemList()
-            items.itemList = [.init(id: 1, source: .rakuten)]
+            items.itemList = [.init(id: "a", source: .rakuten)]
             return items
         }() )
     }

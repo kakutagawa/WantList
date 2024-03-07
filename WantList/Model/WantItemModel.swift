@@ -13,7 +13,7 @@ enum ItemSource: String, Codable {
 }
 
 struct WantItem: Codable, Identifiable, Hashable {
-    var id: Int
+    var id: String
     var itemTitle: String?
     var itemCaption: String?
     var itemPrice: String?
@@ -29,7 +29,7 @@ struct WantItem: Codable, Identifiable, Hashable {
         return nil
     }
 
-    init(id: Int, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
+    init(id: String, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
         self.id = id
         self.itemTitle = itemTitle
         self.itemCaption = itemCaption

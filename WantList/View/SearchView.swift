@@ -12,7 +12,7 @@ struct SearchView: View {
     @StateObject private var getYahooItem = GetYahooItem()
 
     @State private var inputText = ""
-    @State private var tappedAddButtonSet: Set<Int> = Set()
+    @State private var tappedAddButtonSet: Set<String> = Set()
     @State private var tappedRakuten: Bool = true
     @State private var tappedYahoo: Bool = true
     @State private var isShowAlert: Bool = false
@@ -102,8 +102,6 @@ struct SearchView: View {
                                 Spacer()
                                 Button { //ほしい物リストに追加するボタン
                                     isShowAlert = true
-                                    // すでに追加済みで、緑のチェックマークになっている場合
-                                    // 何も処理を行わない、というコードを追加する必要あり
                                 } label: {
                                     Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
                                         .resizable()
@@ -128,6 +126,7 @@ struct SearchView: View {
                             .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
                                 Button("追加する") {
                                     print(goods)
+                                    print(getRakutenItem.rakutenGoods.map(\.id))
                                     items.itemList.append(goods)
                                     tappedAddButtonSet.insert(goods.id)
                                 }
