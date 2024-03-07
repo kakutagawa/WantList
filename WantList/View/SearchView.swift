@@ -15,8 +15,10 @@ struct SearchView: View {
     @State private var tappedAddButtonSet: Set<String> = Set()
     @State private var tappedRakuten: Bool = true
     @State private var tappedYahoo: Bool = true
+    @State private var selectedGoods: WantItem?
     @State private var isShowAlert: Bool = false
     @State private var isSafariView: Bool = false
+    @State private var currentPage = 1
 
     @EnvironmentObject var items: ItemList
     @Environment(\.presentationMode) var presentationMode
@@ -102,6 +104,7 @@ struct SearchView: View {
                                 Spacer()
                                 Button { //ほしい物リストに追加するボタン
                                     isShowAlert = true
+                                    self.selectedGoods = goods
                                 } label: {
                                     Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
                                         .resizable()
@@ -125,10 +128,10 @@ struct SearchView: View {
                             }
                             .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
                                 Button("追加する") {
-                                    print(goods)
-                                    print(getRakutenItem.rakutenGoods.map(\.id))
-                                    items.itemList.append(goods)
-                                    tappedAddButtonSet.insert(goods.id)
+                                    if let selectedGoods = selectedGoods {
+                                        items.itemList.append(selectedGoods)
+                                        tappedAddButtonSet.insert(selectedGoods.id)
+                                    }
                                 }
                                 Button("キャンセル", role: .cancel) {}
                             }
@@ -146,6 +149,16 @@ struct SearchView: View {
                 .frame(maxHeight: 120)
             }
         }
+        GeometryReader { geometry in
+            Color.clear
+                .onAppear {
+                    // スクロールが一定の位置に達したら次のページを取得
+                    if isNearBottomEdge(contentOffset: geometry.frame(in: .global).maxY, bounds: geometry.size.height) {
+                        currentPage += 1
+                        loadNextPage()
+                    }
+                }
+        }
     }
     private func searchItem() {
         getRakutenItem.rakutenGoods = []
@@ -161,6 +174,16 @@ struct SearchView: View {
             return
         }
     }
+
+    private func isNearBottomEdge(contentOffset: CGFloat, bounds: CGFloat) -> Bool {
+        return contentOffset > bounds * 0.8 // 画面下部の80%に達したら true を返す
+    }
+
+    private func loadNextPage() {
+        // ページネーションのための処理を実装
+        // 例: APIリクエストを使って次のページのデータを取得する
+    }
+
 }
 
 #Preview {
