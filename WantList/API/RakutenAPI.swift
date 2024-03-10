@@ -38,22 +38,23 @@ final class GetRakutenItem: ObservableObject {
     @Published var rakutenGoods: [WantItem] = []
     var rakutenLink: URL?
 
-    func searchRakuten(keyword: String) {
-        print("searchRakutenメソッドで受け取った値：\(keyword)")
+    func searchRakuten(keyword: String, page: Int) {
+        print("searchRakutenメソッドで受け取った値 キーワード：\(keyword)、ページ：\(page)")
         Task {
-            await search(keyword: keyword)
+            await search(keyword: keyword, page: page)
         }
     }
     @MainActor
-    private func search(keyword: String) async {
+    private func search(keyword: String, page: Int) async {
         guard let keyword_encode = keyword.addingPercentEncoding(
             withAllowedCharacters: .urlQueryAllowed
         ) else {
             return
         }
+        var pageNumber = page
 
         guard let url = URL(
-            string: "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?applicationId=1047553679060215294&keyword=\(keyword_encode)"
+            string: "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?applicationId=1047553679060215294&keyword=\(keyword_encode)&page=\(pageNumber)"
         ) else {
             return
         }

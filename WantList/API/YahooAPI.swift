@@ -28,14 +28,14 @@ final class GetYahooItem: ObservableObject {
     @Published var yahooGoods: [WantItem] = []
     var yahooLink: URL?
 
-    func searchYahoo(keyword: String) {
+    func searchYahoo(keyword: String, page: Int = 1) {
         print("searchYahooメソッドで受け取った値：\(keyword)")
         Task {
-            await search(keyword: keyword)
+            await search(keyword: keyword, page: page)
         }
     }
     @MainActor
-    private func search(keyword: String) async {
+    private func search(keyword: String, page: Int) async {
         guard let keyword_encode = keyword.addingPercentEncoding(
             withAllowedCharacters: .urlQueryAllowed
         ) else {

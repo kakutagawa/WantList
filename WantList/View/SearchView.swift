@@ -29,6 +29,7 @@ struct SearchView: View {
                 Image(systemName: "magnifyingglass")
                 TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
                     .onSubmit {
+                        deleteResult()
                         searchItem()
                     }
             }
@@ -40,6 +41,7 @@ struct SearchView: View {
             HStack {
                 Button {
                     tappedRakuten.toggle()
+                    deleteResult()
                     searchItem()
                 } label: {
                     Capsule()
@@ -58,6 +60,7 @@ struct SearchView: View {
                 }
                 Button {
                     tappedYahoo.toggle()
+                    deleteResult()
                     searchItem()
                 } label: {
                     Capsule()
@@ -149,41 +152,29 @@ struct SearchView: View {
                 .frame(maxHeight: 120)
             }
         }
-        GeometryReader { geometry in
-            Color.clear
-                .onAppear {
-                    // スクロールが一定の位置に達したら次のページを取得
-                    if isNearBottomEdge(contentOffset: geometry.frame(in: .global).maxY, bounds: geometry.size.height) {
-                        currentPage += 1
-                        loadNextPage()
-                    }
-                }
+        Button {
+            currentPage += 1
+            searchItem()
+        } label: {
+            Text("追加読み込み")
         }
     }
-    private func searchItem() {
+    private func deleteResult() {
         getRakutenItem.rakutenGoods = []
         getYahooItem.yahooGoods = []
+    }
+    private func searchItem() {
         if tappedRakuten == true && tappedYahoo == true {  //両方叩く
-            getRakutenItem.searchRakuten(keyword: inputText)
-            getYahooItem.searchYahoo(keyword: inputText)
+            getRakutenItem.searchRakuten(keyword: inputText, page: currentPage)
+            getYahooItem.searchYahoo(keyword: inputText, page: currentPage)
         } else if tappedRakuten == true && tappedYahoo == false {  //Rakutenのみ叩く
-            getRakutenItem.searchRakuten(keyword: inputText)
+            getRakutenItem.searchRakuten(keyword: inputText, page: currentPage)
         } else if tappedRakuten == false && tappedYahoo == true {  //Yahooのみ叩く
-            getYahooItem.searchYahoo(keyword: inputText)
+            getYahooItem.searchYahoo(keyword: inputText, page: currentPage)
         } else {  //どちらも叩かない
             return
         }
     }
-
-    private func isNearBottomEdge(contentOffset: CGFloat, bounds: CGFloat) -> Bool {
-        return contentOffset > bounds * 0.8 // 画面下部の80%に達したら true を返す
-    }
-
-    private func loadNextPage() {
-        // ページネーションのための処理を実装
-        // 例: APIリクエストを使って次のページのデータを取得する
-    }
-
 }
 
 #Preview {
