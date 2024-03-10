@@ -19,6 +19,7 @@ struct SearchView: View {
     @State private var isShowAlert: Bool = false
     @State private var isSafariView: Bool = false
     @State private var currentPage = 1
+    @State private var isShowProgressView = false
 
     @EnvironmentObject var items: ItemList
     @Environment(\.presentationMode) var presentationMode
@@ -80,83 +81,91 @@ struct SearchView: View {
             }
         }
 
-        List {
-            ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
-                VStack {
-                    HStack {
-                        AsyncImage(url: goods.itemImageUrl) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 100, height: 100)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        VStack(alignment: .leading) {
-                            Text(goods.itemTitle ?? "なし")
-                                .font(.headline)
-                                .foregroundStyle(Color("TextColor"))
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
+                Section(footer: isShowProgressView ?
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .frame(height: 150)
+                            .onAppear {
+                                currentPage += 1
+                                searchItem()
+                            } : nil
+                ) {
+                    ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
+                        VStack {
                             HStack {
-                                Text("\(goods.source.rawValue)")
-                                    .foregroundStyle(Color.red)
-                                    .font(.title3.bold())
-                                Spacer()
-                                Text("¥\(goods.itemPrice?.description ?? "なし")")
-                                    .foregroundStyle(Color.pink)
-                                    .font(.title3.bold())
-                                Spacer()
-                                Button { //ほしい物リストに追加するボタン
-                                    isShowAlert = true
-                                    self.selectedGoods = goods
-                                } label: {
-                                    Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
+                                AsyncImage(url: goods.itemImageUrl) { image in
+                                    image
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
+                                        .frame(width: 100, height: 100)
+                                } placeholder: {
+                                    ProgressView()
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                VStack(alignment: .leading) {
+                                    Text(goods.itemTitle ?? "なし")
+                                        .font(.headline)
+                                        .foregroundStyle(Color("TextColor"))
+                                    HStack {
+                                        Text("\(goods.source.rawValue)")
+                                            .foregroundStyle(Color.red)
+                                            .font(.title3.bold())
+                                        Spacer()
+                                        Text("¥\(goods.itemPrice?.description ?? "なし")")
+                                            .foregroundStyle(Color.pink)
+                                            .font(.title3.bold())
+                                        Spacer()
+                                        Button { //ほしい物リストに追加するボタン
+                                            isShowAlert = true
+                                            self.selectedGoods = goods
+                                        } label: {
+                                            Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundStyle(tappedAddButtonSet.contains(goods.id) ? Color.green : Color.blue)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
 
-                                Button { //Safariを開くボタン
-                                    isSafariView = true
-                                } label: {
-                                    Image(systemName:"safari.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundStyle(Color.blue)
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                                        Button { //Safariを開くボタン
+                                            isSafariView = true
+                                        } label: {
+                                            Image(systemName:"safari.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundStyle(Color.blue)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
 
-                            }
-                            .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
-                                Button("追加する") {
-                                    if let selectedGoods = selectedGoods {
-                                        items.itemList.append(selectedGoods)
-                                        tappedAddButtonSet.insert(selectedGoods.id)
+                                    }
+                                    .alert("欲しい物リストに追加しますか？", isPresented: $isShowAlert) {
+                                        Button("追加する") {
+                                            if let selectedGoods = selectedGoods {
+                                                items.itemList.append(selectedGoods)
+                                                tappedAddButtonSet.insert(selectedGoods.id)
+                                            }
+                                        }
+                                        Button("キャンセル", role: .cancel) {}
                                     }
                                 }
-                                Button("キャンセル", role: .cancel) {}
+                            }
+                        }
+                        .frame(maxHeight: 120)
+                        Divider()
+                        .fullScreenCover(isPresented: $isSafariView) {
+                            if let safariUrl = goods.itemUrl {
+                                SafariView(url: safariUrl) { configuration in
+                                    configuration.dismissButtonStyle = .close
+                                }
+                                .edgesIgnoringSafeArea(.all)
                             }
                         }
                     }
+                    .padding(.horizontal, 10)
                 }
-                .fullScreenCover(isPresented: $isSafariView) {
-                    if let safariUrl = goods.itemUrl {
-                        SafariView(url: safariUrl) { configuration in
-                            configuration.dismissButtonStyle = .close
-                        }
-                        .edgesIgnoringSafeArea(.all)
-                    }
-                }
-                .frame(maxHeight: 120)
             }
-        }
-        Button {
-            currentPage += 1
-            searchItem()
-        } label: {
-            Text("追加読み込み")
         }
     }
     private func deleteResult() {
@@ -164,6 +173,7 @@ struct SearchView: View {
         getYahooItem.yahooGoods = []
     }
     private func searchItem() {
+        isShowProgressView = true
         if tappedRakuten == true && tappedYahoo == true {  //両方叩く
             getRakutenItem.searchRakuten(keyword: inputText, page: currentPage)
             getYahooItem.searchYahoo(keyword: inputText, page: currentPage)

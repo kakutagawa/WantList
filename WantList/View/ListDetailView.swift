@@ -37,7 +37,7 @@ struct ListDetailView: View {
             } label: {
                 switch getImageType() {
                 case .selectedImage:
-                    if let selectedImage = selectedItemImage{
+                    if let selectedImage = selectedItemImage {
                         Image(uiImage: selectedImage)
                             .resizable()
                             .frame(width: 200, height: 200)
@@ -94,20 +94,23 @@ struct ListDetailView: View {
                         }
                 }
                 Section(header: Text("URL")){
-                    TextField("", text: Binding(
-                        get: { self.selectedItemUrl ?? "" },
-                        set: { self.selectedItemUrl = $0 }
-                    ))
-                        .onAppear() {
-                            self.selectedItemUrl = listDetail.itemUrl?.absoluteString
+                    HStack {
+                        TextField("", text: Binding(
+                            get: { self.selectedItemUrl ?? "" },
+                            set: { self.selectedItemUrl = $0 }
+                        ))
+                            .onAppear() {
+                                self.selectedItemUrl = listDetail.itemUrl?.absoluteString
+                            }
+                        Divider()
+                        Button {
+                            if selectedItemUrl != nil {
+                                isSafariView = true
+                            }
+                        } label: {
+                            Image(systemName: "safari.fill")
                         }
-                }
-                Button {
-                    if let safariUrl = selectedItemUrl {
-                        isSafariView = true
                     }
-                } label: {
-                    Text("ウェブサイトにジャンプ")
                 }
                 Button {
                     saveChange()
