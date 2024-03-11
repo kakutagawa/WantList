@@ -28,8 +28,8 @@ final class GetYahooItem: ObservableObject {
     @Published var yahooGoods: [WantItem] = []
     var yahooLink: URL?
 
-    func searchYahoo(keyword: String, page: Int = 1) {
-        print("searchYahooメソッドで受け取った値：\(keyword)")
+    func searchYahoo(keyword: String, page: Int) {
+        print("searchYahooメソッドで受け取った値 キーワード：\(keyword)、ページ：\(page)")
         Task {
             await search(keyword: keyword, page: page)
         }
@@ -41,9 +41,10 @@ final class GetYahooItem: ObservableObject {
         ) else {
             return
         }
+        var pageNumber = page
 
         guard let url = URL(
-            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)"
+            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)&hits=\(pageNumber)"
         ) else {
             return
         }
