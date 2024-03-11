@@ -31,6 +31,7 @@ struct SearchView: View {
                 TextField("キーワード", text: $inputText, prompt: Text("キーワードを入力してください"))
                     .onSubmit {
                         deleteResult()
+                        currentPage = 1
                         searchItem()
                     }
             }
@@ -80,18 +81,9 @@ struct SearchView: View {
                 }
             }
         }
-
         ScrollView {
             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
-                Section(footer: isShowProgressView ?
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle())
-                            .frame(height: 150)
-                            .onAppear {
-                                currentPage += 1
-                                searchItem()
-                            } : nil
-                ) {
+                Section {
                     ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
                         VStack {
                             HStack {
@@ -116,7 +108,7 @@ struct SearchView: View {
                                             .foregroundStyle(Color.pink)
                                             .font(.title3.bold())
                                         Spacer()
-                                        Button { //ほしい物リストに追加するボタン
+                                        Button {
                                             isShowAlert = true
                                             self.selectedGoods = goods
                                         } label: {
@@ -128,7 +120,7 @@ struct SearchView: View {
                                         }
                                         .buttonStyle(PlainButtonStyle())
 
-                                        Button { //Safariを開くボタン
+                                        Button {
                                             isSafariView = true
                                         } label: {
                                             Image(systemName:"safari.fill")
@@ -154,19 +146,38 @@ struct SearchView: View {
                         }
                         .frame(maxHeight: 120)
                         Divider()
-                        .fullScreenCover(isPresented: $isSafariView) {
-                            if let safariUrl = goods.itemUrl {
-                                SafariView(url: safariUrl) { configuration in
-                                    configuration.dismissButtonStyle = .close
+                            .fullScreenCover(isPresented: $isSafariView) {
+                                if let safariUrl = goods.itemUrl {
+                                    SafariView(url: safariUrl) { configuration in
+                                        configuration.dismissButtonStyle = .close
+                                    }
+                                    .edgesIgnoringSafeArea(.all)
                                 }
-                                .edgesIgnoringSafeArea(.all)
                             }
-                        }
+                            .onAppear {
+                                if let lastRakutenItem = getRakutenItem.rakutenGoods.last,
+                                   let lastYahooItem = getYahooItem.yahooGoods.last,
+                                   goods.id == lastRakutenItem.id || goods.id == lastYahooItem.id {
+                                    isShowProgressView = true
+                                    currentPage += 1
+                                    searchItem()
+                                }
+                            }
                     }
                     .padding(.horizontal, 10)
                 }
             }
+
+            if isShowProgressView {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .frame(height: 150)
+                    .onAppear {
+                        searchItem()
+                    }
+            }
         }
+
     }
     private func deleteResult() {
         getRakutenItem.rakutenGoods = []
