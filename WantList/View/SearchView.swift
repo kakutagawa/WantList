@@ -109,8 +109,10 @@ struct SearchView: View {
                                             .font(.title3.bold())
                                         Spacer()
                                         Button {
-                                            isShowAlert = true
-                                            self.selectedGoods = goods
+                                            if !tappedAddButtonSet.contains(goods.id) {
+                                                isShowAlert = true
+                                                self.selectedGoods = goods
+                                            }
                                         } label: {
                                             Image(systemName: tappedAddButtonSet.contains(goods.id) ? "checkmark.circle.fill" : "arrow.down.circle.fill")
                                                 .resizable()
