@@ -14,11 +14,11 @@ struct SearchView: View {
     @State private var inputText = ""
     @State private var tappedAddButtonSet: Set<String> = Set()
     @State private var tappedRakuten: Bool = true
-    @State private var tappedYahoo: Bool = true
+    @State private var tappedYahoo: Bool = false
     @State private var selectedGoods: WantItem?
     @State private var isShowAlert: Bool = false
     @State private var isSafariView: Bool = false
-    @State private var currentPage = 1
+    @State var currentPage = 1
     @State private var isShowProgressView = false
 
     @EnvironmentObject var items: ItemList
@@ -32,7 +32,7 @@ struct SearchView: View {
                     .onSubmit {
                         deleteResult()
                         currentPage = 1
-                        searchItem()
+                        isShowProgressView = true
                     }
             }
             .submitLabel(.search)
@@ -42,7 +42,8 @@ struct SearchView: View {
 
             HStack {
                 Button {
-                    tappedRakuten.toggle()
+                    tappedRakuten = true
+                    tappedYahoo = false
                     deleteResult()
                     searchItem()
                 } label: {
@@ -61,7 +62,8 @@ struct SearchView: View {
                         )
                 }
                 Button {
-                    tappedYahoo.toggle()
+                    tappedRakuten = false
+                    tappedYahoo = true
                     deleteResult()
                     searchItem()
                 } label: {
@@ -84,7 +86,7 @@ struct SearchView: View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1)) {
                 Section {
-                    ForEach(getRakutenItem.rakutenGoods + getYahooItem.yahooGoods, id: \.id) { goods in
+                    ForEach(tappedRakuten ? getRakutenItem.rakutenGoods : getYahooItem.yahooGoods, id: \.id) { goods in
                         VStack {
                             HStack {
                                 AsyncImage(url: goods.itemImageUrl) { image in
@@ -157,10 +159,8 @@ struct SearchView: View {
                                 }
                             }
                             .onAppear {
-                                if let lastRakutenItem = getRakutenItem.rakutenGoods.last,
-                                   let lastYahooItem = getYahooItem.yahooGoods.last,
-                                   goods.id == lastRakutenItem.id || goods.id == lastYahooItem.id {
-                                    isShowProgressView = true
+                                if let lastItem = tappedRakuten ? getRakutenItem.rakutenGoods.last : getYahooItem.yahooGoods.last,
+                                   goods.id == lastItem.id {
                                     currentPage += 1
                                     searchItem()
                                 }
@@ -169,13 +169,13 @@ struct SearchView: View {
                     .padding(.horizontal, 10)
                 }
             }
-
             if isShowProgressView {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
                     .frame(height: 150)
                     .onAppear {
                         searchItem()
+                        isShowProgressView = false
                     }
             }
         }
@@ -186,16 +186,10 @@ struct SearchView: View {
         getYahooItem.yahooGoods = []
     }
     private func searchItem() {
-        isShowProgressView = true
-        if tappedRakuten == true && tappedYahoo == true {  //両方叩く
+        if tappedRakuten {
             getRakutenItem.searchRakuten(keyword: inputText, page: currentPage)
+        } else if tappedYahoo {
             getYahooItem.searchYahoo(keyword: inputText, page: currentPage)
-        } else if tappedRakuten == true && tappedYahoo == false {  //Rakutenのみ叩く
-            getRakutenItem.searchRakuten(keyword: inputText, page: currentPage)
-        } else if tappedRakuten == false && tappedYahoo == true {  //Yahooのみ叩く
-            getYahooItem.searchYahoo(keyword: inputText, page: currentPage)
-        } else {  //どちらも叩かない
-            return
         }
     }
 }
