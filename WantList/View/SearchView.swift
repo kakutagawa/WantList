@@ -22,7 +22,6 @@ struct SearchView: View {
     @State private var isShowProgressView = false
 
     @EnvironmentObject var items: ItemList
-    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack{
@@ -101,11 +100,10 @@ struct SearchView: View {
                                     Text(goods.itemTitle ?? "なし")
                                         .font(.headline)
                                         .foregroundStyle(Color("TextColor"))
+                                    Text(goods.itemShopName ?? "なし")
+                                        .font(.subheadline)
+                                        .foregroundStyle(Color.gray)
                                     HStack {
-                                        Text("\(goods.source.rawValue)")
-                                            .foregroundStyle(Color.red)
-                                            .font(.title3.bold())
-                                        Spacer()
                                         Text("¥\(goods.itemPrice?.description ?? "なし")")
                                             .foregroundStyle(Color.pink)
                                             .font(.title3.bold())
@@ -179,7 +177,6 @@ struct SearchView: View {
                     }
             }
         }
-
     }
     private func deleteResult() {
         getRakutenItem.rakutenGoods = []

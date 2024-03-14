@@ -54,10 +54,16 @@ struct ListView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Spacer()
                                 //価格の表示
-                                Text("¥\(item.itemPrice ?? "なし")")
-                                    .foregroundStyle(Color.pink)
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                HStack {
+                                    Text("\(item.source.rawValue)")
+                                        .foregroundStyle(Color.red)
+                                        .font(.title3.bold())
+                                    Spacer()
+                                    Text("¥\(item.itemPrice ?? "なし")")
+                                        .foregroundStyle(Color.pink)
+                                        .font(.headline)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                }
                             }
                         }
                     }

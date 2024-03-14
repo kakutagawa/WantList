@@ -8,6 +8,7 @@
 import SwiftUI
 
 enum ItemSource: String, Codable {
+    case empty = ""
     case rakuten = "R"
     case yahoo = "Y"
 }
@@ -18,6 +19,7 @@ struct WantItem: Codable, Identifiable, Hashable {
     var itemCaption: String?
     var itemPrice: String?
     var itemUrl: URL?
+    var itemShopName: String?
     var itemImageUrl: URL?
     var itemImageData: Data?
     var source: ItemSource
@@ -29,12 +31,13 @@ struct WantItem: Codable, Identifiable, Hashable {
         return nil
     }
 
-    init(id: String, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
+    init(id: String, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemShopName: String? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
         self.id = id
         self.itemTitle = itemTitle
         self.itemCaption = itemCaption
         self.itemPrice = itemPrice
         self.itemUrl = itemUrl
+        self.itemShopName = itemShopName
         self.itemImageUrl = itemImageUrl
         self.source = source
 

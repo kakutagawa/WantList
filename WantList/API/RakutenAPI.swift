@@ -25,6 +25,7 @@ struct RakutenItems: Codable {
                 var itemPrice: Int?
                 var itemUrl: URL?
                 var itemCode: String?
+                var shopName: String?
                 var mediumImageUrls: [MediumImageUrls]?
 
             struct MediumImageUrls: Codable, Hashable {
@@ -73,6 +74,7 @@ final class GetRakutenItem: ObservableObject {
                     itemCaption: "",
                     itemPrice: "\(item.itemPrice ?? 0)",
                     itemUrl: item.itemUrl,
+                    itemShopName: item.shopName,
                     itemImageUrl: item.mediumImageUrls?.first?.imageUrl,
                     source: .rakuten
                 )

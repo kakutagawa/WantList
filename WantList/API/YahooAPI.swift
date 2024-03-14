@@ -12,10 +12,15 @@ struct YahooItems: Codable {
 
     struct Hits: Codable, Hashable {
         var name: String?
-        var description: String?
         var price: Int?
         var code: String?
         var url: URL?
+        var seller: Seller
+
+        struct Seller: Codable, Hashable {
+            var name: String?
+        }
+
         var image: Image
 
         struct Image: Codable, Hashable {
@@ -60,9 +65,9 @@ final class GetYahooItem: ObservableObject {
                 WantItem(
                     id: item.code ?? "",
                     itemTitle: item.name,
-                    itemCaption: item.description,
                     itemPrice: "\(item.price ?? 0)",
                     itemUrl: item.url,
+                    itemShopName: item.seller.name,
                     itemImageUrl: item.image.medium,
                     source: .yahoo
                 )
