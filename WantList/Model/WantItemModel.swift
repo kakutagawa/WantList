@@ -31,7 +31,17 @@ struct WantItem: Codable, Identifiable, Hashable {
         return nil
     }
 
-    init(id: String, itemTitle: String? = nil, itemCaption: String? = nil, itemPrice: String? = nil, itemUrl: URL? = nil, itemShopName: String? = nil, itemImageUrl: URL? = nil, itemImage: UIImage? = nil, source: ItemSource) {
+    init(
+        id: String,
+        itemTitle: String? = nil,
+        itemCaption: String? = nil,
+        itemPrice: String? = nil,
+        itemUrl: URL? = nil,
+        itemShopName: String? = nil,
+        itemImageUrl: URL? = nil,
+        itemImage: UIImage? = nil,
+        source: ItemSource
+    ) {
         self.id = id
         self.itemTitle = itemTitle
         self.itemCaption = itemCaption

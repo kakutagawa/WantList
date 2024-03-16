@@ -40,27 +40,27 @@ struct ListDetailView: View {
                     if let selectedImage = selectedItemImage {
                         Image(uiImage: selectedImage)
                             .resizable()
-                            .frame(width: 200, height: 200)
+                            .frame(width: 120, height: 120)
                             .padding(.top, 10)
                     }
                 case .handedImage:
                     if let image = listDetail.itemImage {
                         Image(uiImage: image)
                             .resizable()
-                            .frame(width: 200, height: 200)
+                            .frame(width: 120, height: 120)
                             .padding(.top, 10)
                     }
                 case .uiImageByShop(let uiImage):
                     Image(uiImage: uiImage)
                         .resizable()
-                        .frame(width: 200, height: 200)
+                        .frame(width: 120, height: 120)
                         .padding(.top, 10)
                 case .imageUrlByShop(let url):
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
                             .scaledToFit()
-                            .frame(maxWidth: 200, maxHeight: 200)
+                            .frame(maxWidth: 120, maxHeight: 120)
                     } placeholder: {
                         ProgressView()
                     }
@@ -68,7 +68,7 @@ struct ListDetailView: View {
                     Text("No Image")
                         .font(Font.system(size: 24).bold())
                         .foregroundColor(Color.white)
-                        .frame(width: 200, height: 200)
+                        .frame(width: 120, height: 120)
                         .background(Color(UIColor.lightGray))
                         .padding(.top, 10)
                 }

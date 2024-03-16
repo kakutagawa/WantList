@@ -25,13 +25,13 @@ struct MakeListView: View {
                 if let image = itemImage {
                     Image(uiImage: image)
                         .resizable()
-                        .frame(width: 200, height: 200)
+                        .frame(width: 120, height: 120)
                         .padding(.top, 10)
                 } else {
                     Text("No Image")
                         .font(Font.system(size: 24).bold())
                         .foregroundColor(Color.white)
-                        .frame(width: 200, height: 200)
+                        .frame(width: 120, height: 120)
                         .background(Color(UIColor.lightGray))
                         .padding(.top, 10)
                 }
