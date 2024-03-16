@@ -52,10 +52,9 @@ final class GetRakutenItem: ObservableObject {
         ) else {
             return
         }
-        var pageNumber = page
 
         guard let url = URL(
-            string: "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?applicationId=1047553679060215294&keyword=\(keyword_encode)&page=\(pageNumber)"
+            string: "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?applicationId=1047553679060215294&keyword=\(keyword_encode)&page=\(page)"
         ) else {
             return
         }

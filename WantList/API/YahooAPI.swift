@@ -46,10 +46,9 @@ final class GetYahooItem: ObservableObject {
         ) else {
             return
         }
-        var pageNumber = page
 
         guard let url = URL(
-            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)&hits=\(pageNumber)"
+            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)&hits=\(page)"
         ) else {
             return
         }

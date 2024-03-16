@@ -150,7 +150,16 @@ struct ListDetailView: View {
     }
 
     private func saveChange() {
-        let changedItem = WantItem(id: listDetail.id, itemTitle: selectedItemTitle, itemCaption: selectedItemCaption, itemPrice: selectedItemPrice, itemUrl: URL(string: selectedItemUrl ?? ""), itemImage: selectedItemImage ?? listDetail.itemImage, source: .rakuten)
+        let changedItem = WantItem(
+            id: listDetail.id,
+            itemTitle: selectedItemTitle,
+            itemCaption: selectedItemCaption,
+            itemPrice: selectedItemPrice,
+            itemUrl: URL(string: selectedItemUrl ?? ""),
+            itemImageUrl: listDetail.itemImageUrl,
+            itemImage: selectedItemImage ?? listDetail.itemImage,
+            source: listDetail.source
+        )
         let savedItem = items.itemList.map { item in
             var item = item
             if item.id == changedItem.id {
