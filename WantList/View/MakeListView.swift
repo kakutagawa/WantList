@@ -7,15 +7,21 @@
 
 import SwiftUI
 
+protocol MakeListViewDelegate {
+    func transitionTagView()
+}
+
 struct MakeListView: View {
     @EnvironmentObject var items: ItemList
     @State private var itemTitle: String = ""
+    @State private var itemTag: ItemTag = ItemTag(tagTitle: "", tagColor: .clear)
     @State private var itemCaption: String = ""
     @State private var itemPrice: String = ""
     @State private var itemUrl: String = ""
     @State private var itemImage: UIImage?
     @State var showingAlert: Bool = false
     @Environment(\.presentationMode) var presentationMode
+    var makeListViewDelegate: MakeListViewDelegate?
 
     var body: some View {
         VStack {
@@ -40,6 +46,13 @@ struct MakeListView: View {
             Form {
                 Section(header: Text("タイトル")){
                     TextField("タイトルを入力", text: $itemTitle)
+                }
+                Section(header: Text("タグ")){
+                    Button {
+                        makeListViewDelegate?.transitionTagView()
+                    } label: {
+                        
+                    }
                 }
                 Section(header: Text("メモ")){
                     TextEditor(text: $itemCaption)
@@ -80,7 +93,8 @@ struct MakeListView: View {
             itemPrice: itemPrice,
             itemUrl: URL(string: itemUrl),
             itemImage: itemImage,
-            source: .empty
+            source: .empty,
+            itemTag: itemTag
         )
         items.itemList.append(newItem)
         itemTitle = ""

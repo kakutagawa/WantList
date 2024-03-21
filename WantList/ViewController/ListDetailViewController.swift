@@ -23,6 +23,9 @@ final class ListDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        var listDetailView = ListDetailView(listDetail: selectedItem)
+        listDetailView.listDetailViewDelegate = self
+
         let listDetailViewController = UIHostingController(
             rootView: ListDetailView(listDetail: selectedItem)
         )
@@ -38,5 +41,12 @@ final class ListDetailViewController: UIViewController {
             listDetailViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             listDetailViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+extension ListDetailViewController: ListDetailViewDelegate {
+    func transitionTagView() {
+        let tagViewController = TagViewController()
+        navigationController?.pushViewController(tagViewController, animated: true)
     }
 }

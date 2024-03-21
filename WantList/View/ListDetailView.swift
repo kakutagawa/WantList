@@ -8,6 +8,10 @@
 import SwiftUI
 import UIKit
 
+protocol ListDetailViewDelegate {
+    func transitionTagView()
+}
+
 enum ImageType {
     case selectedImage          //ImagePickerで選択した画像
     case handedImage            //ListViewから渡されてきた「自分で選んだ」画像
@@ -18,12 +22,14 @@ enum ImageType {
 
 struct ListDetailView: View {
     var listDetail: WantItem
-    
+    var listDetailViewDelegate: ListDetailViewDelegate?
+
     @State private var selectedItemTitle: String = ""
     @State private var selectedItemCaption: String = ""
     @State private var selectedItemPrice: String = ""
     @State private var selectedItemUrl: String?
     @State private var selectedItemImage: UIImage?
+    @State private var selectedItemTag: ItemTag?
     @State private var showingAlert: Bool = false
     @State private var isSafariView: Bool = false
 
@@ -79,6 +85,19 @@ struct ListDetailView: View {
                         .onAppear() {
                             self.selectedItemTitle = listDetail.itemTitle ?? ""
                         }
+                }
+                Section(header: Text("タグ")){
+                    Button {
+                        listDetailViewDelegate?.transitionTagView()
+                    } label: {
+                        if let selectedItemTag {
+                            Text(selectedItemTag.tagTitle ?? "")
+                                .background(Color(selectedItemTag.tagColor.rawValue))
+                        } else {
+                            Text("タグを追加")
+                        }
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 Section(header: Text("メモ")){
                     TextEditor(text: $selectedItemCaption)
@@ -158,7 +177,8 @@ struct ListDetailView: View {
             itemUrl: URL(string: selectedItemUrl ?? ""),
             itemImageUrl: listDetail.itemImageUrl,
             itemImage: selectedItemImage ?? listDetail.itemImage,
-            source: listDetail.source
+            source: listDetail.source,
+            itemTag: selectedItemTag ?? ItemTag(tagTitle: "", tagColor: .clear)
         )
         let savedItem = items.itemList.map { item in
             var item = item

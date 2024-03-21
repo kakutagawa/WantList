@@ -16,6 +16,10 @@
 		1D3006B32B88736D00B681BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3006B22B88736D00B681BF /* ImagePicker.swift */; };
 		1D3006B52B8B1BAC00B681BF /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3006B42B8B1BAC00B681BF /* SafariView.swift */; };
 		1D42861A2B96148C00BD6496 /* NumberFormattar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4286192B96148C00BD6496 /* NumberFormattar.swift */; };
+		1D43E9B02BA7B9A2009C7663 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9AF2BA7B9A2009C7663 /* TagView.swift */; };
+		1D43E9B22BA8918A009C7663 /* MakeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B12BA8918A009C7663 /* MakeTagView.swift */; };
+		1D43E9B42BAB2C7B009C7663 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B32BAB2C7B009C7663 /* TagViewController.swift */; };
+		1D43E9B62BAB2C91009C7663 /* MakeTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B52BAB2C91009C7663 /* MakeTagViewController.swift */; };
 		1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */; };
 		1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ListView.swift */; };
 		1DD0D3A82B6B137F0008DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */; };
@@ -58,6 +62,10 @@
 		1D3006B22B88736D00B681BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		1D3006B42B8B1BAC00B681BF /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		1D4286192B96148C00BD6496 /* NumberFormattar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormattar.swift; sourceTree = "<group>"; };
+		1D43E9AF2BA7B9A2009C7663 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		1D43E9B12BA8918A009C7663 /* MakeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagView.swift; sourceTree = "<group>"; };
+		1D43E9B32BAB2C7B009C7663 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		1D43E9B52BAB2C91009C7663 /* MakeTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagViewController.swift; sourceTree = "<group>"; };
 		1DD0D3A02B6B137C0008DE7F /* WantList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WantList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListApp.swift; sourceTree = "<group>"; };
 		1DD0D3A52B6B137C0008DE7F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -108,6 +116,8 @@
 				1D207D342B7BAC7A00AAD64A /* ListViewController.swift */,
 				1D207D3D2B8240ED00AAD64A /* ListDetailViewController.swift */,
 				1D207D362B7BAC9200AAD64A /* MakeListViewController.swift */,
+				1D43E9B32BAB2C7B009C7663 /* TagViewController.swift */,
+				1D43E9B52BAB2C91009C7663 /* MakeTagViewController.swift */,
 				1D3006B02B8868C500B681BF /* SearchViewController.swift */,
 				1D3006B22B88736D00B681BF /* ImagePicker.swift */,
 				1D3006B42B8B1BAC00B681BF /* SafariView.swift */,
@@ -191,6 +201,8 @@
 				1DD0D3A52B6B137C0008DE7F /* ListView.swift */,
 				1DD0D3DC2B786BF30008DE7F /* ListDetailView.swift */,
 				1DD0D3D82B786BAD0008DE7F /* MakeListView.swift */,
+				1D43E9AF2BA7B9A2009C7663 /* TagView.swift */,
+				1D43E9B12BA8918A009C7663 /* MakeTagView.swift */,
 				1DD0D3DA2B786BD50008DE7F /* SearchView.swift */,
 			);
 			path = View;
@@ -353,6 +365,10 @@
 				1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */,
 				1D207D3C2B7CFD4700AAD64A /* WantItemModel.swift in Sources */,
 				1D207D402B83982F00AAD64A /* WantItemList.swift in Sources */,
+				1D43E9B42BAB2C7B009C7663 /* TagViewController.swift in Sources */,
+				1D43E9B02BA7B9A2009C7663 /* TagView.swift in Sources */,
+				1D43E9B22BA8918A009C7663 /* MakeTagView.swift in Sources */,
+				1D43E9B62BAB2C91009C7663 /* MakeTagViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
