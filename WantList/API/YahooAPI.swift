@@ -12,9 +12,15 @@ struct YahooItems: Codable {
 
     struct Hits: Codable, Hashable {
         var name: String?
-        var description: String?
         var price: Int?
+        var code: String?
         var url: URL?
+        var seller: Seller
+
+        struct Seller: Codable, Hashable {
+            var name: String?
+        }
+
         var image: Image
 
         struct Image: Codable, Hashable {
@@ -24,17 +30,17 @@ struct YahooItems: Codable {
 }
 
 final class GetYahooItem: ObservableObject {
-    @Published var yahooGoods: [YahooItems.Hits] = []
+    @Published var yahooGoods: [WantItem] = []
     var yahooLink: URL?
 
-    func searchYahoo(keyword: String) {
-        print("searchYahooメソッドで受け取った値：\(keyword)")
+    func searchYahoo(keyword: String, page: Int) {
+        print("searchYahooメソッドで受け取った値 キーワード：\(keyword)、ページ：\(page)")
         Task {
-            await search(keyword: keyword)
+            await search(keyword: keyword, page: page)
         }
     }
     @MainActor
-    private func search(keyword: String) async {
+    private func search(keyword: String, page: Int) async {
         guard let keyword_encode = keyword.addingPercentEncoding(
             withAllowedCharacters: .urlQueryAllowed
         ) else {
@@ -42,7 +48,7 @@ final class GetYahooItem: ObservableObject {
         }
 
         guard let url = URL(
-            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)"
+            string: "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?appid=dj00aiZpPTdWWnNGSDFiOXhBSSZzPWNvbnN1bWVyc2VjcmV0Jng9ODg-&query=\(keyword_encode)&hits=\(page)"
         ) else {
             return
         }
@@ -52,9 +58,20 @@ final class GetYahooItem: ObservableObject {
             let (data, _) = try await URLSession.shared.data(from: url)
             let decoder = JSONDecoder()
             let searchedResult = try decoder.decode(YahooItems.self, from: data)
+            let searchedResultArray = searchedResult.hits
 
-            let items = searchedResult.hits
-            yahooGoods = items
+            let yahooItemsArray = searchedResultArray.map { item in
+                WantItem(
+                    id: item.code ?? "",
+                    itemTitle: item.name,
+                    itemPrice: "\(item.price ?? 0)",
+                    itemUrl: item.url,
+                    itemShopName: item.seller.name,
+                    itemImageUrl: item.image.medium,
+                    source: .yahoo
+                )
+            }
+            yahooGoods.append(contentsOf: yahooItemsArray)
 
         } catch {
             print("エラー: \(error)")

@@ -12,6 +12,7 @@ final class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "ほしい物リスト"
 
         var listView = ListView()
         listView.listViewDelegate = self
@@ -37,18 +38,23 @@ extension ListViewController: ListViewDelegate {
         let makeListViewController = MakeListViewController()
         navigationController?.pushViewController(makeListViewController, animated: true)
     }
+
+    func transitionSearchView() {
+        let searchViewController = SearchViewController()
+        navigationController?.pushViewController(searchViewController, animated: true)
+    }
+
     func transitionListDetailView(item: WantItem) {
         let listDetailViewController = ListDetailViewController(selectedItem: item)
         navigationController?.pushViewController(listDetailViewController, animated: true)
     }
 }
 
-//UIViewControllerRepresentableを使う
 struct UIKitListViewController: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        //UINavigationControllerでMakeListViewをラップ
         UINavigationController(rootViewController: ListViewController())
     }
+    
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
 
     }
