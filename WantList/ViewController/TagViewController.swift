@@ -17,7 +17,7 @@ final class TagViewController: UIViewController {
         var tagView = TagView()
         tagView.tagViewDelegate = self
 
-        let tagViewController = UIHostingController(rootView: TagView())
+        let tagViewController = UIHostingController(rootView: tagView)
         addChild(tagViewController)
         view.addSubview(tagViewController.view)
         tagViewController.didMove(toParent: self)

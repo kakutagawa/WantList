@@ -11,13 +11,6 @@ protocol TagViewDelegate {
     func transitionMakeTagView()
 }
 
-final class TagList: ObservableObject {
-    @Published var tagList: [ItemTag]
-    init(tagList: [ItemTag]) {
-        self.tagList = tagList
-    }
-}
-
 struct TagView: View {
     @EnvironmentObject var tags: TagList
     var tagViewDelegate: TagViewDelegate?

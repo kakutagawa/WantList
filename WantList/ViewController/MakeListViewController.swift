@@ -24,7 +24,7 @@ final class MakeListViewController: UIViewController {
         var makeListView = MakeListView()
         makeListView.makeListViewDelegate = self
 
-        let makeListViewController = UIHostingController(rootView: MakeListView())
+        let makeListViewController = UIHostingController(rootView: makeListView)
         addChild(makeListViewController)
         view.addSubview(makeListViewController.view)
         makeListViewController.didMove(toParent: self)

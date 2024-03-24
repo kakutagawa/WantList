@@ -34,6 +34,7 @@ struct ListDetailView: View {
     @State private var isSafariView: Bool = false
 
     @EnvironmentObject var items: ItemList
+    @EnvironmentObject var tags: TagList
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {

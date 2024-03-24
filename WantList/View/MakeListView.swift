@@ -13,6 +13,7 @@ protocol MakeListViewDelegate {
 
 struct MakeListView: View {
     @EnvironmentObject var items: ItemList
+    @EnvironmentObject var tags: TagList
     @State private var itemTitle: String = ""
     @State private var itemTag: ItemTag = ItemTag(tagTitle: "", tagColor: .clear)
     @State private var itemCaption: String = ""

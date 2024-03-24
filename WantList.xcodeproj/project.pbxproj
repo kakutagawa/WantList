@@ -20,6 +20,7 @@
 		1D43E9B22BA8918A009C7663 /* MakeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B12BA8918A009C7663 /* MakeTagView.swift */; };
 		1D43E9B42BAB2C7B009C7663 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B32BAB2C7B009C7663 /* TagViewController.swift */; };
 		1D43E9B62BAB2C91009C7663 /* MakeTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B52BAB2C91009C7663 /* MakeTagViewController.swift */; };
+		1D43E9B82BAFDFE8009C7663 /* TagList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D43E9B72BAFDFE8009C7663 /* TagList.swift */; };
 		1DD0D3A42B6B137C0008DE7F /* WantListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */; };
 		1DD0D3A62B6B137C0008DE7F /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A52B6B137C0008DE7F /* ListView.swift */; };
 		1DD0D3A82B6B137F0008DE7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD0D3A72B6B137F0008DE7F /* Assets.xcassets */; };
@@ -66,6 +67,7 @@
 		1D43E9B12BA8918A009C7663 /* MakeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagView.swift; sourceTree = "<group>"; };
 		1D43E9B32BAB2C7B009C7663 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		1D43E9B52BAB2C91009C7663 /* MakeTagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTagViewController.swift; sourceTree = "<group>"; };
+		1D43E9B72BAFDFE8009C7663 /* TagList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagList.swift; sourceTree = "<group>"; };
 		1DD0D3A02B6B137C0008DE7F /* WantList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WantList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD0D3A32B6B137C0008DE7F /* WantListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListApp.swift; sourceTree = "<group>"; };
 		1DD0D3A52B6B137C0008DE7F /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				1D207D3B2B7CFD4700AAD64A /* WantItemModel.swift */,
 				1D207D3F2B83982F00AAD64A /* WantItemList.swift */,
+				1D43E9B72BAFDFE8009C7663 /* TagList.swift */,
 				1D4286192B96148C00BD6496 /* NumberFormattar.swift */,
 			);
 			path = Model;
@@ -354,6 +357,7 @@
 				1D207D3E2B8240ED00AAD64A /* ListDetailViewController.swift in Sources */,
 				1DD0D3DB2B786BD50008DE7F /* SearchView.swift in Sources */,
 				1DD0D3CE2B6C56D60008DE7F /* RakutenAPI.swift in Sources */,
+				1D43E9B82BAFDFE8009C7663 /* TagList.swift in Sources */,
 				1DD0D3D92B786BAD0008DE7F /* MakeListView.swift in Sources */,
 				1D207D352B7BAC7A00AAD64A /* ListViewController.swift in Sources */,
 				1DD0D3D22B6C56EE0008DE7F /* YahooAPI.swift in Sources */,

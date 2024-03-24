@@ -15,6 +15,7 @@ protocol ListViewDelegate {
 
 struct ListView: View {
     @EnvironmentObject var items: ItemList
+    @EnvironmentObject var tags: TagList
     var listViewDelegate: ListViewDelegate?
 
     var body: some View {

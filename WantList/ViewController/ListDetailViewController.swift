@@ -26,9 +26,7 @@ final class ListDetailViewController: UIViewController {
         var listDetailView = ListDetailView(listDetail: selectedItem)
         listDetailView.listDetailViewDelegate = self
 
-        let listDetailViewController = UIHostingController(
-            rootView: ListDetailView(listDetail: selectedItem)
-        )
+        let listDetailViewController = UIHostingController(rootView: listDetailView)
         addChild(listDetailViewController)
         view.addSubview(listDetailViewController.view)
         listDetailViewController.didMove(toParent: self)
