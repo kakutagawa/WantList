@@ -21,7 +21,10 @@ final class MakeListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let makeListViewController = UIHostingController(rootView: MakeListView())
+        var makeListView = MakeListView()
+        makeListView.makeListViewDelegate = self
+
+        let makeListViewController = UIHostingController(rootView: makeListView)
         addChild(makeListViewController)
         view.addSubview(makeListViewController.view)
         makeListViewController.didMove(toParent: self)
@@ -34,5 +37,12 @@ final class MakeListViewController: UIViewController {
             makeListViewController.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             makeListViewController.view.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+}
+
+extension MakeListViewController: MakeListViewDelegate {
+    func transitionTagView() {
+        let tagViewController = TagViewController()
+        navigationController?.pushViewController(tagViewController, animated: true)
     }
 }

@@ -15,6 +15,7 @@ protocol ListViewDelegate {
 
 struct ListView: View {
     @EnvironmentObject var items: ItemList
+    @EnvironmentObject var tags: TagList
     var listViewDelegate: ListViewDelegate?
 
     var body: some View {
@@ -72,6 +73,7 @@ struct ListView: View {
                 .onMove(perform: moveRow)
                 .onDelete(perform: removeRow)
             }
+         
             HStack(spacing: 25) {
                 Spacer()
                 //新規作成
@@ -115,7 +117,11 @@ struct ListView: View {
     Group {
         ListView().environmentObject({ () -> ItemList in
             let items = ItemList()
-            items.itemList = [.init(id: "a", source: .rakuten)]
+            items.itemList = [.init(
+                id: "a",
+                source: .rakuten,
+                itemTag: ItemTag(tagTitle: "", tagColor: .clear)
+            )]
             return items
         }() )
     }
