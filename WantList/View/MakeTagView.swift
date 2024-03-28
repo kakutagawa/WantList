@@ -16,25 +16,24 @@ struct MakeTagView: View {
     var body: some View {
         VStack {
             TextField("タグ名を入力", text: $newTagTitle)
-            List {
-                ForEach(TagColor.allCases, id: \.self) { color in
-                    Button {
-                        self.newTagColor = color
-                    } label: {
-                        Circle()
-                            .fill(Color(color.rawValue))
-                            .frame(width: 28, height: 28)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.black, lineWidth: newTagColor == color ? 3 : 0)
-                            )
-                    }
-                }
+
+            ForEach(TagColor.allCases, id: \.self) { color in
                 Button {
-                    addTagList()
+                    self.newTagColor = color
                 } label: {
-                    Text("追加")
+                    Circle()
+                        .fill(color)
+                        .frame(width: 28, height: 28)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.black, lineWidth: newTagColor == color ? 3 : 0)
+                        )
                 }
+            }
+            Button {
+                addTagList()
+            } label: {
+                Text("追加")
             }
         }
     }

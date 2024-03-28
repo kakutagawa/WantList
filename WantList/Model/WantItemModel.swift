@@ -13,7 +13,7 @@ enum ItemSource: String, Codable {
     case yahoo = "Y"
 }
 
-enum TagColor: String, Codable, CaseIterable {
+enum TagColor: String, Codable, CaseIterable, ShapeStyle {
     case clear
     case red
     case blue

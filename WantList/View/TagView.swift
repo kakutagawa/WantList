@@ -29,14 +29,14 @@ struct TagView: View {
                         Spacer()
 
                     }
-                    Button {
-                        tagViewDelegate?.transitionMakeTagView()
-                    } label: {
-                        HStack {
-                            Image(systemName: "plus.app.fill")
-                            Text("新規作成")
-                        }
-                    }
+                }
+            }
+            Button {
+                tagViewDelegate?.transitionMakeTagView()
+            } label: {
+                HStack {
+                    Image(systemName: "plus.app.fill")
+                    Text("新規作成")
                 }
             }
         }
