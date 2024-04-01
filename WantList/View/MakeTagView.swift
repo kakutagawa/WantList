@@ -17,16 +17,16 @@ struct MakeTagView: View {
         VStack {
             TextField("タグ名を入力", text: $newTagTitle)
 
-            ForEach(TagColor.allCases, id: \.self) { color in
+            ForEach(TagColor.allCases, id: \.self) { tagColor in
                 Button {
-                    self.newTagColor = color
+                    self.newTagColor = tagColor
                 } label: {
                     Circle()
-                        .fill(color)
+                        .fill(tagColor.color)
                         .frame(width: 28, height: 28)
                         .overlay(
                             Circle()
-                                .stroke(Color.black, lineWidth: newTagColor == color ? 3 : 0)
+                                .stroke(Color.black, lineWidth: newTagColor == tagColor ? 3 : 0)
                         )
                 }
             }
