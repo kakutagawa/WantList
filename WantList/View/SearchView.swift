@@ -22,6 +22,7 @@ struct SearchView: View {
     @State private var isShowProgressView = false
 
     @EnvironmentObject var items: ItemList
+    @EnvironmentObject var tags: TagList
 
     var body: some View {
         VStack{

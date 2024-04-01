@@ -13,6 +13,7 @@ struct WantListApp: App {
         WindowGroup {
             UIKitListViewController()
                 .environmentObject(ItemList())
+                .environmentObject(TagList())
         }
     }
 }
